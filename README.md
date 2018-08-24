@@ -3,7 +3,7 @@ NeuroSky Android SDK
 
 NeuroSky MindWave Mobile Android SDK
 
-**Please note**: it's not a product of NeuroSky company
+**Please note**: this SDK is not a product of NeuroSky company, but it depends on its software and hardware
 
 References
 -----------
