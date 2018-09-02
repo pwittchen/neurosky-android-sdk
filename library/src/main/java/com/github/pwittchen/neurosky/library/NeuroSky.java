@@ -1,24 +1,34 @@
 package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
+import android.os.Message;
+import android.support.annotation.NonNull;
 import com.neurosky.thinkgear.TGDevice;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 
 //TODO: create builder
 //TODO: create rx methods
 //TODO: create enum representing device states, signals and brainwaves
 public class NeuroSky {
-  private DeviceSignalHandler handler;
   private TGDevice device;
   private boolean rawSignalEnabled = false;
 
-  public void init() {
+  public NeuroSky(final DeviceMessageReceiver receiver) {
     if (Preconditions.isBluetoothAdapterInitialized()) {
-      handler = new DeviceSignalHandler();
+      DeviceMessageHandler handler = new DeviceMessageHandler(receiver);
       device = new TGDevice(BluetoothAdapter.getDefaultAdapter(), handler);
     }
   }
 
   public void connect() {
+    if(Preconditions.isBluetoothEnabled()) {
+      //TODO: display message about enabling bluetooth
+      return;
+    }
+
     if (Preconditions.canConnect(device)) {
       device.connect(rawSignalEnabled);
     }
