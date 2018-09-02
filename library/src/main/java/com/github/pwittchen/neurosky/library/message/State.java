@@ -3,6 +3,7 @@ package com.github.pwittchen.neurosky.library.message;
 import com.neurosky.thinkgear.TGDevice;
 
 public enum State {
+  UNKNOWN(-1),
   IDLE(TGDevice.STATE_IDLE),
   CONNECTING(TGDevice.STATE_CONNECTING),
   CONNECTED(TGDevice.STATE_CONNECTED),

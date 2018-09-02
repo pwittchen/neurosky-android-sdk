@@ -25,7 +25,8 @@ public enum BrainWave {
     return value;
   }
 
-  public void setValue(int value) {
+  public BrainWave value(int value) {
     this.value = value;
+    return this;
   }
 }

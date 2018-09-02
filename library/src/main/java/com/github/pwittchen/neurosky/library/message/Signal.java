@@ -3,6 +3,7 @@ package com.github.pwittchen.neurosky.library.message;
 import com.neurosky.thinkgear.TGDevice;
 
 public enum Signal {
+  UNKNOWN(-1),
   STATE_CHANGE(TGDevice.MSG_STATE_CHANGE),
   POOR_SIGNAL(TGDevice.MSG_POOR_SIGNAL),
   ATTENTION(TGDevice.MSG_ATTENTION),
@@ -31,7 +32,8 @@ public enum Signal {
     return value;
   }
 
-  public void setValue(int value) {
+  public Signal value(int value) {
     this.value = value;
+    return this;
   }
 }
