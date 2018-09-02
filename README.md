@@ -17,6 +17,9 @@ References
 - https://play.google.com/store/apps/details?id=com.pwittchen.eeganalyzer
 - https://github.com/topics/neurosky
 - https://slides.com/piotrwittchen/brain-computer-interface-for-mobile-devices
+- http://support.neurosky.com/kb/science/how-to-convert-raw-values-to-voltage
+- http://support.neurosky.com/kb/science/eeg-band-frequencies
+- http://developer.neurosky.com/docs/lib/exe/fetch.php?media=thinkgear_socket_protocol.pdf
 
 License
 -------
