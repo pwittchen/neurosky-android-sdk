@@ -1,35 +1,31 @@
 package com.github.pwittchen.neurosky;
 
 import android.bluetooth.BluetoothAdapter;
-import android.support.annotation.Nullable;
 import com.neurosky.thinkgear.TGDevice;
 
 //TODO: create builder
 //TODO: create rx methods
 //TODO: organize gradle config
 public class NeuroSky {
-  private BluetoothAdapter bluetoothAdapter;
   private DeviceSignalHandler handler;
   private TGDevice device;
   private boolean rawSignalEnabled = false;
 
   public void init() {
-    bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-    if (bluetoothAdapter != null) {
+    if (Preconditions.isBluetoothAdapterInitialized()) {
       handler = new DeviceSignalHandler();
-      device = new TGDevice(bluetoothAdapter, handler);
+      device = new TGDevice(BluetoothAdapter.getDefaultAdapter(), handler);
     }
   }
 
   public void connect() {
-    if (!isConnecting() && !isConnected()) {
+    if (Preconditions.canConnect(device)) {
       device.connect(rawSignalEnabled);
     }
   }
 
   public void disconnect() {
-    if (isConnected()) {
+    if (Preconditions.isConnected(device)) {
       device.close();
       device = null;
     }
@@ -44,36 +40,14 @@ public class NeuroSky {
   }
 
   public void startMonitoring() {
-    if (isConnected()) {
+    if (Preconditions.isConnected(device)) {
       device.start();
     }
   }
 
   public void stopMonitoring() {
-    if (isConnected()) {
+    if (Preconditions.isConnected(device)) {
       device.stop();
     }
-  }
-
-  @Nullable public TGDevice getDevice() {
-    return device;
-  }
-
-  @Nullable public DeviceSignalHandler getHandler() {
-    return handler;
-  }
-
-  //TODO: move methods below to separate Preconditions class
-
-  private boolean isConnecting() {
-    return device != null && device.getState() == TGDevice.STATE_CONNECTING;
-  }
-
-  private boolean isConnected() {
-    return device != null && device.getState() == TGDevice.STATE_CONNECTED;
-  }
-
-  private boolean isBluetoothEnabled() {
-    return (bluetoothAdapter != null && bluetoothAdapter.isEnabled());
   }
 }
