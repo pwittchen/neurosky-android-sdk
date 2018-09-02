@@ -14,6 +14,9 @@ public class DeviceMessageHandler extends Handler {
   }
 
   @Override public void handleMessage(Message message) {
+    // message.arg1 -> level
+    // message.obj -> object
+    //TODO: create sub-handlers for brainwaves and state change
     super.handleMessage(message);
     deviceMessageReceiver.onReceive(message);
   }
