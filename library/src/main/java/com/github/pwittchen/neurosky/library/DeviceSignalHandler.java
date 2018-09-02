@@ -1,4 +1,4 @@
-package com.github.pwittchen.neurosky;
+package com.github.pwittchen.neurosky.library;
 
 import android.os.Handler;
 import android.os.Message;

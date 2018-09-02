@@ -1,11 +1,10 @@
-package com.github.pwittchen.neurosky;
+package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
 import com.neurosky.thinkgear.TGDevice;
 
 //TODO: create builder
 //TODO: create rx methods
-//TODO: organize gradle config
 //TODO: create enum representing device states, signals and brainwaves
 public class NeuroSky {
   private DeviceSignalHandler handler;

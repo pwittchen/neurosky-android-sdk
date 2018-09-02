@@ -1,4 +1,4 @@
-package com.github.pwittchen.neurosky;
+package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
 import com.neurosky.thinkgear.TGDevice;
