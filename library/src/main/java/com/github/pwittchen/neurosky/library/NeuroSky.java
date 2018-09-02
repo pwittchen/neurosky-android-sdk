@@ -18,7 +18,7 @@ public class NeuroSky {
     }
   }
 
-  public RxNeuroSky rx() {
+  public static RxNeuroSky rx() {
     return RxNeuroSky.create();
   }
 
