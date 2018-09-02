@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import com.github.pwittchen.neurosky.library.NeuroSky;
+import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
 import com.github.pwittchen.neurosky.library.listeners.ExtendedDeviceMessageListener;
 import com.github.pwittchen.neurosky.library.message.BrainWave;
 import com.github.pwittchen.neurosky.library.message.Signal;
@@ -24,7 +25,11 @@ public class MainActivity extends AppCompatActivity {
     neuroSky = createNeuroSky();
 
     //TODO: handle this onClick
-    neuroSky.connect();
+    try {
+      neuroSky.connect();
+    } catch (BluetoothNotEnabledException e) {
+      Log.d(LOG_TAG, e.getMessage());
+    }
 
     //TODO: handle this onClick
     neuroSky.stopMonitoring();

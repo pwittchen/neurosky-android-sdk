@@ -33,7 +33,7 @@ public abstract class ExtendedDeviceMessageListener implements DeviceMessageList
 
   public abstract void onBrainWavesChange(Set<BrainWave> brainWaves);
 
-  protected Signal getSignal(Message message) {
+  Signal getSignal(Message message) {
     for (Signal signal : Signal.values()) {
       if (message.what == signal.getType()) {
         return signal.value(message.arg1);
@@ -43,7 +43,7 @@ public abstract class ExtendedDeviceMessageListener implements DeviceMessageList
     return Signal.UNKNOWN;
   }
 
-  protected State getState(Message message) {
+  State getState(Message message) {
     if (message.what == Signal.STATE_CHANGE.getType()) {
       for (State state : State.values()) {
         if (message.arg1 == state.getType()) {
@@ -55,7 +55,7 @@ public abstract class ExtendedDeviceMessageListener implements DeviceMessageList
     return State.UNKNOWN;
   }
 
-  protected Set<BrainWave> getBrainWaves(Message message) {
+  Set<BrainWave> getBrainWaves(Message message) {
     final Set<BrainWave> brainWaves = new HashSet<>();
 
     if (message.what == Signal.EEG_POWER.getType()) {

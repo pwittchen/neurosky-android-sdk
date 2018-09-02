@@ -1,13 +1,12 @@
 package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
+import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
 import com.github.pwittchen.neurosky.library.listeners.DeviceMessageListener;
 import com.neurosky.thinkgear.TGDevice;
 
-//TODO: create builder
-//TODO: create rx methods
-//TODO: create enum representing device states, signals and brainwaves
 public class NeuroSky {
+
   private TGDevice device;
   private boolean rawSignalEnabled = false;
 
@@ -18,10 +17,9 @@ public class NeuroSky {
     }
   }
 
-  public void connect() {
-    if(Preconditions.isBluetoothEnabled()) {
-      //TODO: display message about enabling bluetooth
-      return;
+  public void connect() throws BluetoothNotEnabledException {
+    if (!Preconditions.isBluetoothEnabled()) {
+      throw new BluetoothNotEnabledException();
     }
 
     if (Preconditions.canConnect(device)) {

@@ -3,7 +3,6 @@ package com.github.pwittchen.neurosky.library;
 import android.bluetooth.BluetoothAdapter;
 import com.neurosky.thinkgear.TGDevice;
 
-//TODO: prepare rx wrappers for this class
 public class Preconditions {
 
   private Preconditions() {
