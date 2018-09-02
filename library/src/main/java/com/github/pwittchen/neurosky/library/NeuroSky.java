@@ -1,13 +1,8 @@
 package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
-import android.os.Message;
-import android.support.annotation.NonNull;
+import com.github.pwittchen.neurosky.library.listeners.DeviceMessageListener;
 import com.neurosky.thinkgear.TGDevice;
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
 
 //TODO: create builder
 //TODO: create rx methods
@@ -16,9 +11,9 @@ public class NeuroSky {
   private TGDevice device;
   private boolean rawSignalEnabled = false;
 
-  public NeuroSky(final DeviceMessageReceiver receiver) {
+  public NeuroSky(final DeviceMessageListener listener) {
     if (Preconditions.isBluetoothAdapterInitialized()) {
-      DeviceMessageHandler handler = new DeviceMessageHandler(receiver);
+      DeviceMessageHandler handler = new DeviceMessageHandler(listener);
       device = new TGDevice(BluetoothAdapter.getDefaultAdapter(), handler);
     }
   }
