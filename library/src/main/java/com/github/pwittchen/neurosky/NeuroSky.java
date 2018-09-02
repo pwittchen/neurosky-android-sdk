@@ -6,6 +6,7 @@ import com.neurosky.thinkgear.TGDevice;
 //TODO: create builder
 //TODO: create rx methods
 //TODO: organize gradle config
+//TODO: create enum representing device states, signals and brainwaves
 public class NeuroSky {
   private DeviceSignalHandler handler;
   private TGDevice device;
