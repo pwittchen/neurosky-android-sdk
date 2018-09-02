@@ -16,7 +16,7 @@ public class DeviceMessageHandler extends Handler {
     super.handleMessage(message);
 
     if (listener != null) {
-      listener.listen(message);
+      listener.onMessageReceived(message);
     }
   }
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 
 public abstract class ExtendedDeviceMessageListener implements DeviceMessageListener {
 
-  @Override public void listen(Message message) {
+  @Override public void onMessageReceived(Message message) {
     State state = getState(message);
     if (state != State.UNKNOWN) {
       onStateChange(state);
