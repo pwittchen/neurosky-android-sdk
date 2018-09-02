@@ -11,6 +11,10 @@ References
 - http://developer.neurosky.com/
 - https://store.neurosky.com/products/android-developer-tools-4
 - https://github.com/pwittchen/EEGReader
+- http://wittchen.io/tags/bci/
+- https://play.google.com/store/apps/details?id=com.pwittchen.eeganalyzer
+- https://github.com/topics/neurosky
+- https://slides.com/piotrwittchen/brain-computer-interface-for-mobile-devices
 
 License
 -------
