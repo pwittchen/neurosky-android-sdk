@@ -2,8 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
 apply plugin: 'jacoco-android'
 apply plugin: 'net.ltgt.apt'
-//apply from: '../config/quality.gradle'
-//apply from: '../maven_push.gradle'
+//apply from: '../config/quality.gradle' //TODO: add code quality config
+//apply from: '../maven_push.gradle'     //TODO: add deployment setup
+//TODO: add fat aar plugin
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
