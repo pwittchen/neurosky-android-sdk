@@ -1,4 +1,4 @@
-package com.github.pwittchen.neurosky.library.listeners;
+package com.github.pwittchen.neurosky.library.listener;
 
 import android.os.Message;
 import com.github.pwittchen.neurosky.library.message.BrainWave;

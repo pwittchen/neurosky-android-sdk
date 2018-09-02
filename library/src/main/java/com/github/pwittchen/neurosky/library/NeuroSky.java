@@ -2,7 +2,7 @@ package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
-import com.github.pwittchen.neurosky.library.listeners.DeviceMessageListener;
+import com.github.pwittchen.neurosky.library.listener.DeviceMessageListener;
 import com.neurosky.thinkgear.TGDevice;
 
 public class NeuroSky {

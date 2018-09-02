@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import com.github.pwittchen.neurosky.library.NeuroSky;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
-import com.github.pwittchen.neurosky.library.listeners.ExtendedDeviceMessageListener;
+import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener;
 import com.github.pwittchen.neurosky.library.message.BrainWave;
 import com.github.pwittchen.neurosky.library.message.Signal;
 import com.github.pwittchen.neurosky.library.message.State;

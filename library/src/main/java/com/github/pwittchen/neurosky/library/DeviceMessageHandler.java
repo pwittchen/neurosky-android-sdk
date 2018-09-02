@@ -2,7 +2,7 @@ package com.github.pwittchen.neurosky.library;
 
 import android.os.Handler;
 import android.os.Message;
-import com.github.pwittchen.neurosky.library.listeners.DeviceMessageListener;
+import com.github.pwittchen.neurosky.library.listener.DeviceMessageListener;
 
 public class DeviceMessageHandler extends Handler {
 
