@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     neuroSky = createNeuroSky();
+    neuroSky.enableRawSignal();
 
     //TODO: handle this onClick
     try {
