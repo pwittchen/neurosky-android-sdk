@@ -1,4 +1,4 @@
-package com.github.pwittchen.neurosky.library.enums;
+package com.github.pwittchen.neurosky.library.message;
 
 public enum BrainWave {
   DELTA(1),
