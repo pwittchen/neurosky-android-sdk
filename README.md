@@ -11,6 +11,12 @@ Contents
 --------
 
 - [Usage](#usage)
+  - [Java](#java)
+    - [Listener](#listener)
+    - [RxJava](#rxjava)
+  - [Kotlin](#kotlin)
+    - [Listener](#listener-1)
+    - [RxKotlin](#rxkotlin)
 - [Examples](#examples)
 - [Download](#download)
 - [Tests](#tests)
@@ -27,21 +33,21 @@ Usage
 
 ### Java
 
-#### With listener
+#### Listener
 
 ...
 
-#### With RxJava
+#### RxJava
 
 ...
 
 ### Kotlin
 
-#### With listener
+#### Listener
 
 ...
 
-#### With RxKotlin
+#### RxKotlin
 
 ...
 
