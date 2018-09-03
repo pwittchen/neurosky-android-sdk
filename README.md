@@ -55,8 +55,8 @@ Examples
 --------
 
 You can find examples of library usage in the following directories:
-- `app-java`
-- `app-kotlin`
+- `app-java` (example with listener)
+- `app-kotlin` (example with listener)
 - `app-rxjava`
 - `app-rxkotlin`
 
