@@ -1,5 +1,6 @@
 package com.github.pwittchen.neurosky.library.rx;
 
+import android.support.annotation.Nullable;
 import com.github.pwittchen.neurosky.library.NeuroSky;
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener;
 import com.github.pwittchen.neurosky.library.message.BrainMessage;
@@ -62,5 +63,9 @@ public class RxNeuroSky {
 
   public void disableRawSignal() {
     neuroSky.disableRawSignal();
+  }
+
+  @Nullable public NeuroSky getNeuroSky() {
+    return neuroSky;
   }
 }
