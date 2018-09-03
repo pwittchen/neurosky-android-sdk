@@ -5,6 +5,7 @@ import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledExcept
 import com.github.pwittchen.neurosky.library.listener.DeviceMessageListener;
 import com.neurosky.thinkgear.TGDevice;
 
+//TODO: consider using ReactiveBus for handling messages
 public class NeuroSky {
 
   private TGDevice device;
