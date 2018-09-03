@@ -70,6 +70,11 @@ Tests
 
 ...
 
+Code style
+----------
+
+...
+
 Static Code Analysis
 --------------------
 
