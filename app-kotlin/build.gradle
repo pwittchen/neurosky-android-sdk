@@ -38,8 +38,6 @@ dependencies {
   implementation deps.kotlinstdlib
   implementation deps.appcompatv7
   implementation deps.constraintlayout
-  implementation deps.butterknife
-  annotationProcessor deps.butterknifecompiler
 }
 
 buildscript {
