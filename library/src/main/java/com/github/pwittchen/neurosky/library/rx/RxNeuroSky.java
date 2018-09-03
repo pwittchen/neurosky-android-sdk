@@ -1,21 +1,17 @@
 package com.github.pwittchen.neurosky.library.rx;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import com.github.pwittchen.neurosky.library.NeuroSky;
-import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
+import com.github.pwittchen.neurosky.library.exception.BluetoothDeviceNotConnectedException;
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener;
 import com.github.pwittchen.neurosky.library.message.BrainWave;
 import com.github.pwittchen.neurosky.library.message.Signal;
 import com.github.pwittchen.neurosky.library.message.State;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableOnSubscribe;
+import io.reactivex.Emitter;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
-import io.reactivex.functions.Consumer;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +19,9 @@ import java.util.concurrent.TimeUnit;
 public class RxNeuroSky {
 
   private NeuroSky neuroSky;
+  private Emitter<State> stateEmitter;
+  private Emitter<Signal> signalEmitter;
+  private Emitter<Set<BrainWave>> brainWavesEmitter;
 
   public static RxNeuroSky create() {
     return new RxNeuroSky();
@@ -30,20 +29,36 @@ public class RxNeuroSky {
 
   private RxNeuroSky() {
     this.neuroSky = new NeuroSky(createListener());
+    stateEmitter = createEmitter();
+    signalEmitter = createEmitter();
+    brainWavesEmitter = createEmitter();
+  }
+
+  @NonNull private Emitter createEmitter() {
+    return new Emitter() {
+      @Override public void onNext(Object value) {
+      }
+
+      @Override public void onError(Throwable error) {
+      }
+
+      @Override public void onComplete() {
+      }
+    };
   }
 
   @NonNull protected ExtendedDeviceMessageListener createListener() {
     return new ExtendedDeviceMessageListener() {
       @Override public void onStateChange(State state) {
-        //TODO: handle this! Maybe create a global emitter per each stream?
+        stateEmitter.onNext(state);
       }
 
       @Override public void onSignalChange(Signal signal) {
-        //TODO: handle this!
+        signalEmitter.onNext(signal);
       }
 
       @Override public void onBrainWavesChange(Set<BrainWave> brainWaves) {
-        //TODO: handle this!
+        brainWavesEmitter.onNext(brainWaves);
       }
     };
   }
@@ -53,11 +68,10 @@ public class RxNeuroSky {
   }
 
   public Flowable<State> streamState(BackpressureStrategy backpressureStrategy) {
-    return Flowable.create(new FlowableOnSubscribe<State>() {
-      @Override public void subscribe(final FlowableEmitter<State> emitter) {
-        //TODO: implement
-      }
-    }, backpressureStrategy);
+    return Flowable.create(
+        (FlowableOnSubscribe<State>) stateEmitter,
+        backpressureStrategy
+    );
   }
 
   public Flowable<Signal> streamSignal() {
@@ -65,11 +79,10 @@ public class RxNeuroSky {
   }
 
   public Flowable<Signal> streamSignal(BackpressureStrategy backpressureStrategy) {
-    return Flowable.create(new FlowableOnSubscribe<Signal>() {
-      @Override public void subscribe(FlowableEmitter<Signal> emitter) {
-        //TODO: implement
-      }
-    }, backpressureStrategy);
+    return Flowable.create(
+        (FlowableOnSubscribe<Signal>) signalEmitter,
+        backpressureStrategy
+    );
   }
 
   public Flowable<Set<BrainWave>> streamBrainWaves() {
@@ -77,51 +90,68 @@ public class RxNeuroSky {
   }
 
   public Flowable<Set<BrainWave>> streamBrainWaves(BackpressureStrategy backpressureStrategy) {
-    return Flowable.create(new FlowableOnSubscribe<Set<BrainWave>>() {
-      @Override public void subscribe(FlowableEmitter<Set<BrainWave>> emitter) {
-        //TODO: implement
-      }
-    }, backpressureStrategy);
+    return Flowable.create(
+        (FlowableOnSubscribe<Set<BrainWave>>) brainWavesEmitter,
+        backpressureStrategy
+    );
   }
 
   public Completable connect() {
-    return Completable.create(new CompletableOnSubscribe() {
-      @Override public void subscribe(CompletableEmitter emitter) {
-        try {
-          neuroSky.connect();
-          //TODO: add observing of the connection state and emit onComplete when ready
-          emitter.onComplete(); //TODO: should be emitted after establishing connection
-        } catch (BluetoothNotEnabledException e) {
-          emitter.tryOnError(e);
-        }
-      }
-    });
+    return Completable.create(emitter ->
+        Completable
+            .fromRunnable(() -> neuroSky.connect())
+            .toFlowable()
+            .filter(state -> state.equals(State.CONNECTED))
+            .timeout(30, TimeUnit.SECONDS)
+            .subscribe(
+                state -> emitter.onComplete(),
+                emitter::tryOnError
+            )
+    );
   }
 
   public Completable disconnect() {
-    return Completable.create(new CompletableOnSubscribe() {
-      @Override public void subscribe(CompletableEmitter emitter) throws Exception {
-        //TODO: add observing of the connection state and emit onComplete when ready
-        neuroSky.disconnect(); //TODO: should be emitted after quiting connection
-      }
-    });
+    return Completable.create(emitter ->
+        Completable
+            .fromRunnable(() -> neuroSky.disconnect())
+            .toFlowable()
+            .switchMap(o -> streamState())
+            .filter(state -> state.equals(State.DISCONNECTED))
+            .timeout(30, TimeUnit.SECONDS)
+            .subscribe(
+                state -> emitter.onComplete(),
+                emitter::tryOnError
+            )
+    );
   }
 
   public Completable startMonitoring() {
-    return Completable.create(new CompletableOnSubscribe() {
-      @Override public void subscribe(CompletableEmitter emitter) throws Exception {
-        //TODO: add observing of the connection state and emit onComplete when ready
-        neuroSky.startMonitoring(); //TODO: should be emitted after quiting connection
-      }
-    });
+    return Completable.create(emitter ->
+        RxPreconditions
+            .isConnected(neuroSky.getDevice())
+            .subscribe(isConnected -> {
+              if (isConnected) {
+                neuroSky.startMonitoring();
+                emitter.onComplete();
+              } else {
+                emitter.onError(new BluetoothDeviceNotConnectedException());
+              }
+            }, emitter::onError)
+    );
   }
 
   public Completable stopMonitoring() {
-    return Completable.create(new CompletableOnSubscribe() {
-      @Override public void subscribe(CompletableEmitter emitter) throws Exception {
-        //TODO: add observing of the connection state and emit onComplete when ready
-        neuroSky.stopMonitoring(); //TODO: should be emitted after quiting connection
-      }
+    return Completable.create(emitter -> {
+      RxPreconditions
+          .isConnected(neuroSky.getDevice())
+          .subscribe(isConnected -> {
+            if (isConnected) {
+              neuroSky.stopMonitoring();
+              emitter.onComplete();
+            } else {
+              emitter.onError(new BluetoothDeviceNotConnectedException());
+            }
+          }, emitter::onError);
     });
   }
 }

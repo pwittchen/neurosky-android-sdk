@@ -58,4 +58,8 @@ public class NeuroSky {
       device.stop();
     }
   }
+
+  public TGDevice getDevice() {
+    return device;
+  }
 }
