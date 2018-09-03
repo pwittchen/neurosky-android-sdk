@@ -54,41 +54,52 @@ public class MainActivity extends AppCompatActivity {
   @NonNull private NeuroSky createNeuroSky() {
     return new NeuroSky(new ExtendedDeviceMessageListener() {
       @Override public void onStateChange(State state) {
-        if (neuroSky != null && state.equals(State.CONNECTED)) {
-          neuroSky.startMonitoring();
-        }
-
-        tvState.setText(state.toString());
-        Log.d(LOG_TAG, state.toString());
+        handleStateChange(state);
       }
 
       @Override public void onSignalChange(Signal signal) {
-
-        switch (signal) {
-          case ATTENTION:
-            tvAttention.setText(getFormattedMessage("attention: %d", signal));
-            break;
-          case MEDITATION:
-            tvMeditation.setText(getFormattedMessage("meditation: %d", signal));
-            break;
-          case BLINK:
-            tvBlink.setText(getFormattedMessage("blink: %d", signal));
-            break;
-        }
-
-        Log.d(LOG_TAG, String.format("%s: %d", signal.toString(), signal.getValue()));
+        handleSignalChange(signal);
       }
 
       @Override public void onBrainWavesChange(Set<BrainWave> brainWaves) {
-        for (BrainWave brainWave : brainWaves) {
-          Log.d(LOG_TAG, String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
-        }
+        handleBrainWavesChange(brainWaves);
       }
     });
   }
 
+  private void handleStateChange(final State state) {
+    if (neuroSky != null && state.equals(State.CONNECTED)) {
+      neuroSky.startMonitoring();
+    }
+
+    tvState.setText(state.toString());
+    Log.d(LOG_TAG, state.toString());
+  }
+
+  private void handleSignalChange(final Signal signal) {
+    switch (signal) {
+      case ATTENTION:
+        tvAttention.setText(getFormattedMessage("attention: %d", signal));
+        break;
+      case MEDITATION:
+        tvMeditation.setText(getFormattedMessage("meditation: %d", signal));
+        break;
+      case BLINK:
+        tvBlink.setText(getFormattedMessage("blink: %d", signal));
+        break;
+    }
+
+    Log.d(LOG_TAG, String.format("%s: %d", signal.toString(), signal.getValue()));
+  }
+
   private String getFormattedMessage(String messageFormat, Signal signal) {
     return String.format(Locale.getDefault(), messageFormat, signal.getValue());
+  }
+
+  private void handleBrainWavesChange(final Set<BrainWave> brainWaves) {
+    for (BrainWave brainWave : brainWaves) {
+      Log.d(LOG_TAG, String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+    }
   }
 
   @OnClick(R.id.btn_connect) void connect() {
