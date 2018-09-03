@@ -7,6 +7,83 @@ NeuroSky MindWave Mobile Android SDK
 
 **This project is not production-ready yet!**
 
+Contents
+--------
+
+- [Usage](#usage)
+- [Examples](#examples)
+- [Download](#download)
+- [Tests](#tests)
+- [Code style](#code-style)
+- [Static code analysis](#static-code-analysis)
+- [JavaDoc](#javadoc)
+- [Changelog](#changelog)
+- [Releasing](#releasing)
+- [References](#references)
+- [License](#license)
+
+Usage
+-----
+
+### Java
+
+#### With listener
+
+...
+
+#### With RxJava
+
+...
+
+### Kotlin
+
+#### With listener
+
+...
+
+#### With RxKotlin
+
+...
+
+Examples
+--------
+
+You can find examples of library usage in the following directories:
+- `app-java`
+- `app-kotlin`
+- `app-rxjava`
+- `app-rxkotlin`
+
+Download
+--------
+
+...
+
+Tests
+-----
+
+...
+
+Static Code Analysis
+--------------------
+
+...
+
+JavaDoc
+-------
+
+...
+
+Changelog
+---------
+
+...
+
+Releasing
+---------
+
+...
+
 References
 -----------
 - http://neurosky.com/
