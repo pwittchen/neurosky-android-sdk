@@ -10,16 +10,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.github.pwittchen.neurosky.library.NeuroSky;
+import com.github.pwittchen.neurosky.library.Preconditions;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener;
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
 import com.github.pwittchen.neurosky.library.message.enums.Signal;
 import com.github.pwittchen.neurosky.library.message.enums.State;
-import com.github.pwittchen.neurosky.library.rx.RxNeuroSky;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.schedulers.Schedulers;
 import java.util.Locale;
 import java.util.Set;
 
@@ -27,26 +23,32 @@ public class MainActivity extends AppCompatActivity {
 
   private final static String LOG_TAG = "NeuroSky";
   private NeuroSky neuroSky;
-  private RxNeuroSky rxNeuroSky;
 
   @BindView(R.id.tv_state) TextView tvState;
   @BindView(R.id.tv_attention) TextView tvAttention;
   @BindView(R.id.tv_meditation) TextView tvMeditation;
   @BindView(R.id.tv_blink) TextView tvBlink;
-  private Disposable disposable;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
-    //neuroSky = createNeuroSky();
-    rxNeuroSky = new RxNeuroSky();
+    neuroSky = createNeuroSky();
   }
 
   @Override protected void onResume() {
     super.onResume();
-    handleBrainMessages();
+    if (neuroSky != null && Preconditions.isConnected(neuroSky.getDevice())) {
+      neuroSky.startMonitoring();
+    }
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    if (neuroSky != null && Preconditions.isConnected(neuroSky.getDevice())) {
+      neuroSky.stopMonitoring();
+    }
   }
 
   @NonNull private NeuroSky createNeuroSky() {
@@ -85,46 +87,13 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  private void handleBrainMessages() {
-    disposable = rxNeuroSky
-        .stream()
-        .subscribeOn(Schedulers.computation())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnCancel(() -> rxNeuroSky.stopMonitoring())
-        .subscribe(brainMessage -> {
-          if (!brainMessage.getState().equals(State.UNKNOWN)) {
-            tvState.setText(brainMessage.getState().toString());
-            Log.d(LOG_TAG, brainMessage.getState().toString());
-          }
-
-          switch (brainMessage.getSignal()) {
-            case ATTENTION:
-              tvAttention.setText(getFormattedMessage("attention: %d", brainMessage.getSignal()));
-              break;
-            case MEDITATION:
-              tvMeditation.setText(getFormattedMessage("meditation: %d", brainMessage.getSignal()));
-              break;
-            case BLINK:
-              tvBlink.setText(getFormattedMessage("blink: %d", brainMessage.getSignal()));
-              break;
-          }
-
-          if (!brainMessage.getBrainWaves().isEmpty()) {
-            for (BrainWave brainWave : brainMessage.getBrainWaves()) {
-              Log.d(LOG_TAG, String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
-            }
-          }
-        }, throwable -> Log.d(LOG_TAG, throwable.getMessage()));
-  }
-
   private String getFormattedMessage(String messageFormat, Signal signal) {
     return String.format(Locale.getDefault(), messageFormat, signal.getValue());
   }
 
   @OnClick(R.id.btn_connect) void connect() {
     try {
-      //neuroSky.connect();
-      rxNeuroSky.connect();
+      neuroSky.connect();
     } catch (BluetoothNotEnabledException e) {
       Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
       Log.d(LOG_TAG, e.getMessage());
@@ -132,25 +101,14 @@ public class MainActivity extends AppCompatActivity {
   }
 
   @OnClick(R.id.btn_disconnect) void disconnect() {
-    //neuroSky.disconnect();
-    rxNeuroSky.disconnect();
+    neuroSky.disconnect();
   }
 
   @OnClick(R.id.btn_start_monitoring) void startMonitoring() {
-    //neuroSky.startMonitoring();
-    rxNeuroSky.startMonitoring();
+    neuroSky.startMonitoring();
   }
 
   @OnClick(R.id.btn_stop_monitoring) void stopMonitoring() {
-    //neuroSky.stopMonitoring();
-    rxNeuroSky.startMonitoring();
-  }
-
-  @Override protected void onPause() {
-    super.onPause();
-    if (disposable != null && !disposable.isDisposed()) {
-      disposable.dispose();
-    }
-    //neuroSky.stopMonitoring();
+    neuroSky.stopMonitoring();
   }
 }
