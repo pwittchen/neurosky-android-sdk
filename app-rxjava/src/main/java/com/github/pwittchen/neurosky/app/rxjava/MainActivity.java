@@ -17,6 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Locale;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,39 +40,51 @@ public class MainActivity extends AppCompatActivity {
 
   @Override protected void onResume() {
     super.onResume();
-    handleBrainMessages();
+    disposable = streamBrainMessages();
   }
 
-  private void handleBrainMessages() {
-    disposable = rxNeuroSky
+  private Disposable streamBrainMessages() {
+    return rxNeuroSky
         .stream()
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnCancel(() -> rxNeuroSky.stopMonitoring())
         .subscribe(brainMessage -> {
-          if (!brainMessage.getState().equals(State.UNKNOWN)) {
-            tvState.setText(brainMessage.getState().toString());
-            Log.d(LOG_TAG, brainMessage.getState().toString());
-          }
-
-          switch (brainMessage.getSignal()) {
-            case ATTENTION:
-              tvAttention.setText(getFormattedMessage("attention: %d", brainMessage.getSignal()));
-              break;
-            case MEDITATION:
-              tvMeditation.setText(getFormattedMessage("meditation: %d", brainMessage.getSignal()));
-              break;
-            case BLINK:
-              tvBlink.setText(getFormattedMessage("blink: %d", brainMessage.getSignal()));
-              break;
-          }
-
-          if (!brainMessage.getBrainWaves().isEmpty()) {
-            for (BrainWave brainWave : brainMessage.getBrainWaves()) {
-              Log.d(LOG_TAG, String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
-            }
-          }
+          handleState(brainMessage.getState());
+          handleSignal(brainMessage.getSignal());
+          handleBrainWaves(brainMessage.getBrainWaves());
         }, throwable -> Log.d(LOG_TAG, throwable.getMessage()));
+  }
+
+  private void handleState(final State state) {
+    if (!state.equals(State.UNKNOWN)) {
+      tvState.setText(state.toString());
+      Log.d(LOG_TAG, state.toString());
+    }
+  }
+
+  private void handleSignal(final Signal signal) {
+    switch (signal) {
+      case ATTENTION:
+        tvAttention.setText(getFormattedMessage("attention: %d", signal));
+        break;
+      case MEDITATION:
+        tvMeditation.setText(getFormattedMessage("meditation: %d", signal));
+        break;
+      case BLINK:
+        tvBlink.setText(getFormattedMessage("blink: %d", signal));
+        break;
+    }
+  }
+
+  private void handleBrainWaves(final Set<BrainWave> brainWaves) {
+    if (brainWaves.isEmpty()) {
+      return;
+    }
+
+    for (BrainWave brainWave : brainWaves) {
+      Log.d(LOG_TAG, String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+    }
   }
 
   private String getFormattedMessage(String messageFormat, Signal signal) {
