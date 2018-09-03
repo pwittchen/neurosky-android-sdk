@@ -2,6 +2,8 @@ package com.github.pwittchen.neurosky.library.rx;
 
 import android.support.annotation.NonNull;
 import com.github.pwittchen.neurosky.library.NeuroSky;
+import com.github.pwittchen.neurosky.library.Preconditions;
+import com.github.pwittchen.neurosky.library.exception.BluetoothDeviceIsConnectingOrConnectedException;
 import com.github.pwittchen.neurosky.library.exception.BluetoothDeviceNotConnectedException;
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener;
 import com.github.pwittchen.neurosky.library.message.BrainWave;
@@ -79,10 +81,20 @@ public class RxNeuroSky {
   }
 
   public Flowable<Signal> streamSignal(BackpressureStrategy backpressureStrategy) {
-    return Flowable.create(
-        (FlowableOnSubscribe<Signal>) signalEmitter,
-        backpressureStrategy
-    );
+    return
+        RxPreconditions
+            .isConnected(neuroSky.getDevice())
+            .toFlowable()
+            .switchMap(isConnected -> {
+              if (isConnected) {
+                return Flowable.create(
+                    (FlowableOnSubscribe<Signal>) signalEmitter,
+                    backpressureStrategy
+                );
+              } else {
+                return Flowable.error(new BluetoothDeviceNotConnectedException());
+              }
+            });
   }
 
   public Flowable<Set<BrainWave>> streamBrainWaves() {
@@ -90,13 +102,27 @@ public class RxNeuroSky {
   }
 
   public Flowable<Set<BrainWave>> streamBrainWaves(BackpressureStrategy backpressureStrategy) {
-    return Flowable.create(
-        (FlowableOnSubscribe<Set<BrainWave>>) brainWavesEmitter,
-        backpressureStrategy
-    );
+    return
+        RxPreconditions
+            .isConnected(neuroSky.getDevice())
+            .toFlowable()
+            .switchMap(isConnected -> {
+              if (isConnected) {
+                return Flowable.create(
+                    (FlowableOnSubscribe<Set<BrainWave>>) brainWavesEmitter,
+                    backpressureStrategy
+                );
+              } else {
+                return Flowable.error(new BluetoothDeviceNotConnectedException());
+              }
+            });
   }
 
   public Completable connect() {
+    if (Preconditions.canConnect(neuroSky.getDevice())) {
+      return Completable.error(new BluetoothDeviceIsConnectingOrConnectedException());
+    }
+
     return Completable.create(emitter ->
         Completable
             .fromRunnable(() -> neuroSky.connect())
