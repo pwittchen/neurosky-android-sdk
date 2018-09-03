@@ -1,4 +1,4 @@
-package com.github.pwittchen.neurosky.library.message;
+package com.github.pwittchen.neurosky.library.message.enums;
 
 import com.neurosky.thinkgear.TGDevice;
 

@@ -6,9 +6,9 @@ import com.github.pwittchen.neurosky.library.Preconditions;
 import com.github.pwittchen.neurosky.library.exception.BluetoothDeviceIsConnectingOrConnectedException;
 import com.github.pwittchen.neurosky.library.exception.BluetoothDeviceNotConnectedException;
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener;
-import com.github.pwittchen.neurosky.library.message.BrainWave;
-import com.github.pwittchen.neurosky.library.message.Signal;
-import com.github.pwittchen.neurosky.library.message.State;
+import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
+import com.github.pwittchen.neurosky.library.message.enums.Signal;
+import com.github.pwittchen.neurosky.library.message.enums.State;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
 import io.reactivex.Emitter;
@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 //TODO: add proper validation with RxPreconditions
+//TODO: consider total refactor of this class... (use BrainMessage object)
 public class RxNeuroSky {
 
   private NeuroSky neuroSky;

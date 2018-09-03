@@ -1,9 +1,9 @@
 package com.github.pwittchen.neurosky.library.listener;
 
 import android.os.Message;
-import com.github.pwittchen.neurosky.library.message.BrainWave;
-import com.github.pwittchen.neurosky.library.message.Signal;
-import com.github.pwittchen.neurosky.library.message.State;
+import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
+import com.github.pwittchen.neurosky.library.message.enums.Signal;
+import com.github.pwittchen.neurosky.library.message.enums.State;
 import com.neurosky.thinkgear.TGEegPower;
 import java.util.HashSet;
 import java.util.Set;
