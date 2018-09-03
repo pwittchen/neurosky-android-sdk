@@ -26,6 +26,8 @@ public class RxNeuroSky {
           @Override public void onStateChange(State state) {
             if (state.equals(State.CONNECTED)) {
               startMonitoring();
+            } else if (state.equals(State.DISCONNECTED)) {
+              stopMonitoring();
             }
 
             emitter.onNext(new BrainMessage(state, Signal.STATE_CHANGE, new HashSet<>()));
