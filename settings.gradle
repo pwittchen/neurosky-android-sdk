@@ -1,1 +1,1 @@
-include ':app-kotlin', ':app-java', ':app-rxjava', ':library'
+include ':app-kotlin', ':app-java', ':app-rxjava', ':library', ':app-rxkotlin'
