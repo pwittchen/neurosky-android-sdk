@@ -126,7 +126,22 @@ neuroSky.stopMonitoring()
 
 #### RxKotlin
 
-...
+```kotlin
+val neuroSky = NeuroSky()
+
+neuroSky
+  .stream()
+  .subscribeOn(Schedulers.computation())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe {
+    handleStateChange(it.state())
+    handleSignalChange(it.signal())
+    handleBrainWavesChange(it.brainWaves())
+  }
+
+// connecting, disconnecting, starting and stopping monitoring
+// is the same as in the previous example
+```
 
 Examples
 --------
