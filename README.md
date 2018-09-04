@@ -35,11 +35,64 @@ Usage
 
 #### Listener
 
-...
+```java
+
+// initialize NeuroSky object with listener
+
+NeuroSky neuroSky = new NeuroSky(new ExtendedDeviceMessageListener() {
+  @Override public void onStateChange(State state) {
+    // handle state change...
+  }
+
+  @Override public void onSignalChange(Signal signal) {
+    // handle signal change...
+  }
+
+  @Override public void onBrainWavesChange(Set<BrainWave> brainWaves) {
+    // handle brain waves change...
+  }
+});
+
+// connect to device
+
+try {
+  neuroSky.connect();
+} catch (BluetoothNotEnabledException e) {
+  // handle exception...
+}
+
+// disconnect from the device
+
+neuroSky.disconnect()
+
+// start monitoring (should start automatically after establishing connection)
+
+neuroSky.startMonitoring()
+
+// stop monitoring
+
+neuroSky.stopMonitoring();
+
+```
 
 #### RxJava
 
-...
+```
+neuroSky = new NeuroSky();
+
+neuroSky
+    .stream()
+    .subscribeOn(Schedulers.computation())
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(brainEvent -> {
+      handleStateChange(brainEvent.state());
+      handleSignalChange(brainEvent.signal());
+      handleBrainWavesChange(brainEvent.brainWaves());
+    });
+
+// connecting, disconnecting, starting and stopping monitoring
+// is the same as in the previous example
+```
 
 ### Kotlin
 
