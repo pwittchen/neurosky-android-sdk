@@ -51,7 +51,7 @@ NeuroSky neuroSky = new NeuroSky(new ExtendedDeviceMessageListener() {
   }
 });
 
-// connect to device
+// connect to the device
 try {
   neuroSky.connect();
 } catch (BluetoothNotEnabledException e) {
@@ -59,10 +59,10 @@ try {
 }
 
 // disconnect from the device
-neuroSky.disconnect()
+neuroSky.disconnect();
 
 // start monitoring (should start automatically after establishing connection)
-neuroSky.startMonitoring()
+neuroSky.startMonitoring();
 
 // stop monitoring
 neuroSky.stopMonitoring();
@@ -91,7 +91,38 @@ neuroSky
 
 #### Listener
 
-...
+```kotlin
+// initialize NeuroSky object with listener
+val neuroSky = NeuroSky(object : ExtendedDeviceMessageListener() {
+  override fun onStateChange(state: State) {
+    handleStateChange(state)
+  }
+
+  override fun onSignalChange(signal: Signal) {
+    handleSignalChange(signal)
+  }
+
+  override fun onBrainWavesChange(brainWaves: Set<BrainWave>) {
+    handleBrainWavesChange(brainWaves)
+  }
+})
+
+// connect to the device
+try {
+  neuroSky.connect()
+} catch (e: BluetoothNotEnabledException) {
+  // handle exception...
+}
+
+// disconnect from the device
+neuroSky.disconnect()
+
+// start monitoring (should start automatically after establishing connection)
+neuroSky.startMonitoring()
+
+// stop monitoring
+neuroSky.stopMonitoring()
+```
 
 #### RxKotlin
 
