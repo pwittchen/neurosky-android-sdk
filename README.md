@@ -165,37 +165,51 @@ You can find examples of library usage in the following directories:
 Download
 --------
 
-...
+TBD.
 
 Tests
 -----
 
-...
+Tests are available in `library/src/test/java/` directory and can be executed on JVM without any emulator or Android device from Android Studio or CLI with the following command:
+
+```
+./gradlew test
+```
+
+To generate test coverage report, run the following command:
+
+```
+./gradlew test jacocoTestReport
+```
 
 Code style
 ----------
 
-...
+Code style used in the project is called `SquareAndroid` from Java Code Styles repository by Square available at: https://github.com/square/java-code-styles.
 
 Static Code Analysis
 --------------------
 
-...
+Static code analysis runs Checkstyle, FindBugs, PMD and Lint. It can be executed with command:
+
+ ```
+ ./gradlew check
+ ```
 
 JavaDoc
 -------
 
-...
+JavaDoc is available at: http://pwittchen.github.io/neurosky-android-sdk/javadoc
 
 Changelog
 ---------
 
-...
+See [CHANGELOG.md](https://github.com/pwittchen/neurosky-android-sdk/blob/master/CHANGELOG.md) file.
 
 Releasing
 ---------
 
-...
+See [CHANGELOG.md](https://github.com/pwittchen/neurosky-android-sdk/blob/master/RELEASING.md) file.
 
 References
 -----------
