@@ -222,7 +222,7 @@ See [CHANGELOG.md](https://github.com/pwittchen/neurosky-android-sdk/blob/master
 Releasing
 ---------
 
-See [CHANGELOG.md](https://github.com/pwittchen/neurosky-android-sdk/blob/master/RELEASING.md) file.
+See [RELEASING.md](https://github.com/pwittchen/neurosky-android-sdk/blob/master/RELEASING.md) file.
 
 References
 -----------
