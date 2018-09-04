@@ -5,6 +5,7 @@ import com.github.pwittchen.neurosky.library.message.enums.Signal;
 import com.github.pwittchen.neurosky.library.message.enums.State;
 import java.util.Set;
 
+@SuppressWarnings("PMD") // I want to have the same methods names as field names
 public class BrainEvent {
   private final State state;
   private final Signal signal;

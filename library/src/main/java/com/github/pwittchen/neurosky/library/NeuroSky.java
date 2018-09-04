@@ -33,11 +33,11 @@ public class NeuroSky {
 
       @Override public void onStateChange(State state) {
         this.state = state;
-        eventBus.send(new BrainEvent(state, Signal.STATE_CHANGE, new HashSet<>()));
+        eventBus.send(new BrainEvent(state, Signal.STATE_CHANGE, new HashSet<BrainWave>()));
       }
 
       @Override public void onSignalChange(Signal signal) {
-        eventBus.send(new BrainEvent(state, signal, new HashSet<>()));
+        eventBus.send(new BrainEvent(state, signal, new HashSet<BrainWave>()));
       }
 
       @Override public void onBrainWavesChange(Set<BrainWave> brainWaves) {

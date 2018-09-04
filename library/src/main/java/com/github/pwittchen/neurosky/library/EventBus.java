@@ -3,6 +3,7 @@ package com.github.pwittchen.neurosky.library;
 import com.github.pwittchen.neurosky.library.message.BrainEvent;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.functions.Predicate;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -26,6 +27,10 @@ public class EventBus {
   public Flowable<BrainEvent> receive(BackpressureStrategy backpressureStrategy) {
     return (Flowable<BrainEvent>) (Flowable<?>) bus
         .toFlowable(backpressureStrategy)
-        .filter(o -> o instanceof BrainEvent);
+        .filter(new Predicate<Object>() {
+          @Override public boolean test(Object o) {
+            return o instanceof BrainEvent;
+          }
+        });
   }
 }

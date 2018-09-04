@@ -2,8 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
 apply plugin: 'jacoco-android'
 apply plugin: 'net.ltgt.apt'
-//apply from: '../config/quality.gradle' //TODO: add code quality config
-//apply from: '../maven_push.gradle'     //TODO: add deployment setup
+apply from: '../config/quality.gradle'
+apply from: '../maven_push.gradle'
+
 //TODO: add fat aar plugin
 
 android {
@@ -42,8 +43,8 @@ android {
     }
   }
   compileOptions {
-    targetCompatibility 1.8
-    sourceCompatibility 1.8
+    targetCompatibility 1.7
+    sourceCompatibility 1.7
   }
 }
 
