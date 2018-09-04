@@ -37,7 +37,6 @@ Usage
 
 ```java
 // initialize NeuroSky object with listener
-
 NeuroSky neuroSky = new NeuroSky(new ExtendedDeviceMessageListener() {
   @Override public void onStateChange(State state) {
     // handle state change...
@@ -53,7 +52,6 @@ NeuroSky neuroSky = new NeuroSky(new ExtendedDeviceMessageListener() {
 });
 
 // connect to device
-
 try {
   neuroSky.connect();
 } catch (BluetoothNotEnabledException e) {
@@ -61,17 +59,13 @@ try {
 }
 
 // disconnect from the device
-
 neuroSky.disconnect()
 
 // start monitoring (should start automatically after establishing connection)
-
 neuroSky.startMonitoring()
 
 // stop monitoring
-
 neuroSky.stopMonitoring();
-
 ```
 
 #### RxJava
