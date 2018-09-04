@@ -5,26 +5,26 @@ import com.github.pwittchen.neurosky.library.message.enums.Signal;
 import com.github.pwittchen.neurosky.library.message.enums.State;
 import java.util.Set;
 
-public class BrainMessage {
+public class BrainEvent {
   private final State state;
   private final Signal signal;
   private final Set<BrainWave> brainWaves;
 
-  public BrainMessage(final State state, final Signal signal, final Set<BrainWave> brainWaves) {
+  public BrainEvent(final State state, final Signal signal, final Set<BrainWave> brainWaves) {
     this.state = state;
     this.signal = signal;
     this.brainWaves = brainWaves;
   }
 
-  public State getState() {
+  public State state() {
     return state;
   }
 
-  public Signal getSignal() {
+  public Signal signal() {
     return signal;
   }
 
-  public Set<BrainWave> getBrainWaves() {
+  public Set<BrainWave> brainWaves() {
     return brainWaves;
   }
 }
