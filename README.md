@@ -36,7 +36,6 @@ Usage
 #### Listener
 
 ```java
-
 // initialize NeuroSky object with listener
 
 NeuroSky neuroSky = new NeuroSky(new ExtendedDeviceMessageListener() {
@@ -77,7 +76,7 @@ neuroSky.stopMonitoring();
 
 #### RxJava
 
-```
+```java
 neuroSky = new NeuroSky();
 
 neuroSky
