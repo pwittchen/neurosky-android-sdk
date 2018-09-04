@@ -134,6 +134,16 @@ neuroSky.startMonitoring()
 neuroSky.stopMonitoring()
 ```
 
+You can also create simpler listener with `DeviceMessageListener` interface and handle `android.os.Message` objects.
+
+```kotlin
+val neuroSky = NeuroSky(DeviceMessageListener {
+  // handle message here...
+})
+```
+
+Nevertheless, in that case, you'll have to process and handle data manually.
+
 #### RxKotlin
 
 ```kotlin
