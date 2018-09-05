@@ -1,5 +1,6 @@
 package com.github.pwittchen.neurosky.library;
 
+import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
 import com.github.pwittchen.neurosky.library.listener.DeviceMessageListener;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,8 +47,10 @@ public class NeuroSkyTest {
 
   @Test
   public void shouldEnableRawSignal() {
-    // when
+    // given
     NeuroSky neuroSky = new NeuroSky(deviceMessageListener);
+
+    // when
     neuroSky.enableRawSignal();
 
     // then
@@ -56,11 +59,22 @@ public class NeuroSkyTest {
 
   @Test
   public void shouldDisableRawSignal() {
-    // when
+    // given
     NeuroSky neuroSky = new NeuroSky(deviceMessageListener);
+
+    // when
     neuroSky.disableRawSignal();
 
     // then
     assertThat(neuroSky.isRawSignalEnabled()).isFalse();
+  }
+
+  @Test(expected = BluetoothNotEnabledException.class)
+  public void shouldThrowAnExceptionWhenTryingToConnectToDeviceWithBluetoothDisabled() {
+    // when
+    NeuroSky neuroSky = new NeuroSky(deviceMessageListener);
+
+    // then
+    neuroSky.connect();
   }
 }
