@@ -27,10 +27,6 @@ public class EventBus {
   public Flowable<BrainEvent> receive(BackpressureStrategy backpressureStrategy) {
     return (Flowable<BrainEvent>) (Flowable<?>) bus
         .toFlowable(backpressureStrategy)
-        .filter(new Predicate<Object>() {
-          @Override public boolean test(Object o) {
-            return o instanceof BrainEvent;
-          }
-        });
+        .filter(object -> object instanceof BrainEvent);
   }
 }
