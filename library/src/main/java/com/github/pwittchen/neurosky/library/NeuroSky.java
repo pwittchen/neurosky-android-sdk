@@ -19,10 +19,11 @@ public class NeuroSky {
   private final static EventBus eventBus = EventBus.create();
   private TGDevice device;
   private boolean rawSignalEnabled = false;
+  private DeviceMessageHandler handler;
 
   public NeuroSky(final DeviceMessageListener listener) {
     if (Preconditions.isBluetoothAdapterInitialized()) {
-      DeviceMessageHandler handler = new DeviceMessageHandler(listener);
+      handler = new DeviceMessageHandler(listener);
       device = new TGDevice(BluetoothAdapter.getDefaultAdapter(), handler);
     }
   }
@@ -79,6 +80,10 @@ public class NeuroSky {
     rawSignalEnabled = false;
   }
 
+  public boolean isRawSignalEnabled() {
+    return rawSignalEnabled;
+  }
+
   public void startMonitoring() {
     if (Preconditions.isConnected(device)) {
       device.start();
@@ -93,5 +98,9 @@ public class NeuroSky {
 
   public TGDevice getDevice() {
     return device;
+  }
+
+  public DeviceMessageHandler getHandler() {
+    return handler;
   }
 }
