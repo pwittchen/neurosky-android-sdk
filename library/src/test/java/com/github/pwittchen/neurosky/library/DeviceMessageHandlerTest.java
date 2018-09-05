@@ -17,10 +17,10 @@ import static org.mockito.Mockito.verify;
 public class DeviceMessageHandlerTest {
 
   @Mock
-  DeviceMessageListener deviceMessageListener;
+  private DeviceMessageListener deviceMessageListener;
 
   @Mock
-  Message message;
+  private Message message;
 
   @Before
   public void setUp() {
@@ -47,7 +47,6 @@ public class DeviceMessageHandlerTest {
     // then
     verify(deviceMessageListener).onMessageReceived(message);
   }
-
 
   @Test
   public void shouldNotHandleMessage() {
