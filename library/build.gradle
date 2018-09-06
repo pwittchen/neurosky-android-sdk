@@ -6,8 +6,6 @@ apply plugin: 'com.mobbeel.plugin'
 apply from: '../config/quality.gradle'
 apply from: '../maven_push.gradle'
 
-//TODO: add fat aar plugin
-
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
   buildToolsVersion rootProject.ext.buildToolsVersion
