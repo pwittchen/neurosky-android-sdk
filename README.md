@@ -96,8 +96,22 @@ neuroSky
       handleBrainWavesChange(brainEvent.brainWaves());
     });
 
-// connecting, disconnecting, starting and stopping monitoring
-// is the same as in the previous example
+// connecting, disconnecting, starting and stopping monitoring is the same as in the previous example
+```
+
+In order to customize backpressure strategy, you can use the following method:
+
+```java
+Flowable<BrainEvent> stream(backpressureStrategy)
+```
+
+You can also leverage capabilities of RxJava and its error handling by using the following methods:
+
+```java
+Completable connectCompletable()
+Completable disconnectCompletable()
+Completable startMonitoringCompletable()
+Completable stopMonitoringCompletable()
 ```
 
 ### Kotlin
@@ -162,8 +176,20 @@ neuroSky
     handleBrainWavesChange(it.brainWaves())
   }
 
-// connecting, disconnecting, starting and stopping monitoring
-// is the same as in the previous example
+// connecting, disconnecting, starting and stopping monitoring is the same as in the previous example
+```
+
+```java
+Flowable<BrainEvent> stream(backpressureStrategy)
+```
+
+You can also leverage capabilities of RxKotlin and its error handling by using the following methods:
+
+```java
+Completable connectCompletable()
+Completable disconnectCompletable()
+Completable startMonitoringCompletable()
+Completable stopMonitoringCompletable()
 ```
 
 Examples

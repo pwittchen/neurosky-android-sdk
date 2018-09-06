@@ -18,10 +18,6 @@ public class EventBus {
     bus.onNext(object);
   }
 
-  public Flowable<BrainEvent> receive() {
-    return receive(BackpressureStrategy.BUFFER);
-  }
-
   @SuppressWarnings("unchecked")
   public Flowable<BrainEvent> receive(BackpressureStrategy backpressureStrategy) {
     return (Flowable<BrainEvent>) (Flowable<?>) bus

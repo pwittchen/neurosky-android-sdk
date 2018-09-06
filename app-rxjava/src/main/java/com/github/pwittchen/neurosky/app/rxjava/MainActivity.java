@@ -1,5 +1,6 @@
 package com.github.pwittchen.neurosky.app.rxjava;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,7 +10,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.github.pwittchen.neurosky.library.NeuroSky;
-import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
 import com.github.pwittchen.neurosky.library.message.enums.Signal;
 import com.github.pwittchen.neurosky.library.message.enums.State;
@@ -103,24 +103,53 @@ public class MainActivity extends AppCompatActivity {
     Log.d(LOG_TAG, stringBuilder.substring(0, stringBuilder.toString().length() - 2));
   }
 
-  @OnClick(R.id.btn_connect) void connect() {
-    try {
-      neuroSky.connect();
-    } catch (BluetoothNotEnabledException e) {
-      Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-      Log.d(LOG_TAG, e.getMessage());
-    }
+  @SuppressLint("CheckResult") @OnClick(R.id.btn_connect) void connect() {
+    neuroSky
+        .connectCompletable()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            () -> showMessage("connecting..."),
+            throwable -> {
+              showMessage(throwable.getMessage());
+              Log.d(LOG_TAG, throwable.getMessage());
+            });
   }
 
-  @OnClick(R.id.btn_disconnect) void disconnect() {
-    neuroSky.disconnect();
+  @SuppressLint("CheckResult") @OnClick(R.id.btn_disconnect) void disconnect() {
+    neuroSky
+        .disconnectCompletable()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            () -> showMessage("disconnected"),
+            throwable -> showMessage(throwable.getMessage())
+        );
   }
 
-  @OnClick(R.id.btn_start_monitoring) void startMonitoring() {
-    neuroSky.startMonitoring();
+  @SuppressLint("CheckResult") @OnClick(R.id.btn_start_monitoring) void startMonitoring() {
+    neuroSky
+        .startMonitoringCompletable()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            () -> showMessage("started monitoring..."),
+            throwable -> showMessage(throwable.getMessage())
+        );
   }
 
-  @OnClick(R.id.btn_stop_monitoring) void stopMonitoring() {
-    neuroSky.stopMonitoring();
+  @SuppressLint("CheckResult") @OnClick(R.id.btn_stop_monitoring) void stopMonitoring() {
+    neuroSky
+        .stopMonitoringCompletable()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            () -> showMessage("stopped monitoring..."),
+            throwable -> showMessage(throwable.getMessage())
+        );
+  }
+
+  private void showMessage(String message) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
   }
 }

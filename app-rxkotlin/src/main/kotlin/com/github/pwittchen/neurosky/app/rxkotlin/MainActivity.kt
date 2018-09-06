@@ -40,26 +40,56 @@ class MainActivity : AppCompatActivity() {
 
   private fun initButtonListeners() {
     btn_connect.setOnClickListener {
-      try {
-        neuroSky.connect()
-      } catch (e: BluetoothNotEnabledException) {
-        Toast.makeText(this, e.message, Toast.LENGTH_SHORT)
-            .show()
-        Log.d(LOG_TAG, e.message)
-      }
+      neuroSky
+          .connectCompletable()
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(
+              { showMessage("connecting") },
+              { throwable ->
+                showMessage(throwable.message.toString())
+                Log.d(LOG_TAG, throwable.message)
+              })
     }
 
     btn_disconnect.setOnClickListener {
-      neuroSky.disconnect()
+      neuroSky
+          .disconnectCompletable()
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(
+              { showMessage("disconnected") },
+              { throwable -> showMessage(throwable.message.toString()) }
+          )
     }
 
     btn_start_monitoring.setOnClickListener {
-      neuroSky.startMonitoring()
+      neuroSky
+          .startMonitoringCompletable()
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(
+              { showMessage("started monitoring...") },
+              { throwable -> showMessage(throwable.message.toString()) }
+          )
     }
 
     btn_stop_monitoring.setOnClickListener {
-      neuroSky.stopMonitoring()
+      neuroSky
+          .stopMonitoringCompletable()
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(
+              { showMessage("stopped monitoring...") },
+              { throwable -> showMessage(throwable.message.toString()) }
+          )
     }
+  }
+
+  private fun showMessage(message: String) {
+    Toast
+        .makeText(this, message, Toast.LENGTH_SHORT)
+        .show()
   }
 
   override fun onResume() {
