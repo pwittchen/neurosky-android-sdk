@@ -65,6 +65,7 @@ public abstract class ExtendedDeviceMessageListener implements DeviceMessageList
       brainWaves.add(BrainWave.LOW_ALPHA.value(eegPower.lowAlpha));
       brainWaves.add(BrainWave.HIGH_ALPHA.value(eegPower.highAlpha));
       brainWaves.add(BrainWave.LOW_BETA.value(eegPower.lowBeta));
+      brainWaves.add(BrainWave.HIGH_BETA.value(eegPower.highBeta));
       brainWaves.add(BrainWave.LOW_GAMMA.value(eegPower.lowGamma));
       brainWaves.add(BrainWave.MID_GAMMA.value(eegPower.midGamma));
     }
