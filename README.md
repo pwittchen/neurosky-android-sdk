@@ -99,7 +99,7 @@ neuroSky
 // connecting, disconnecting, starting and stopping monitoring is the same as in the previous example
 ```
 
-In order to customize backpressure strategy, you can use the following method:
+Default backpressure strategy is BUFFER. In order to customize backpressure strategy, you can use the following method:
 
 ```java
 Flowable<BrainEvent> stream(backpressureStrategy)
@@ -178,6 +178,8 @@ neuroSky
 
 // connecting, disconnecting, starting and stopping monitoring is the same as in the previous example
 ```
+
+Default backpressure strategy is BUFFER. In order to customize backpressure strategy, you can use the following method:
 
 ```java
 Flowable<BrainEvent> stream(backpressureStrategy)
