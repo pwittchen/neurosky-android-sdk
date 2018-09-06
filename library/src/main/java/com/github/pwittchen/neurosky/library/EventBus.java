@@ -3,7 +3,6 @@ package com.github.pwittchen.neurosky.library;
 import com.github.pwittchen.neurosky.library.message.BrainEvent;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.functions.Predicate;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
