@@ -208,6 +208,8 @@ Download
 
 TBD.
 
+**Please note**: this library is released as a **fat aar** and contains all its dependencies within a single `*.aar` file. It's done this way because this library depends on ThinkGear library, which is distributed as a `ThinkGear.jar` file by the NeuroSky company. ThinkGear is also not available on the Maven Central repository. I wanted to make usage of this library as simple as possible without bothering about additional dependencies and custom configuration. Now, with this approach we can add a single dependency to our project and we're good to go.
+
 Tests
 -----
 
