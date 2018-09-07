@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity() {
       Signal.ATTENTION -> tv_attention.text = getFormattedMessage("attention: %d", signal)
       Signal.MEDITATION -> tv_meditation.text = getFormattedMessage("meditation: %d", signal)
       Signal.BLINK -> tv_blink.text = getFormattedMessage("blink: %d", signal)
+      else -> Log.d(LOG_TAG, "unhandled signal")
     }
 
     Log.d(LOG_TAG, String.format("%s: %d", signal.toString(), signal.value))

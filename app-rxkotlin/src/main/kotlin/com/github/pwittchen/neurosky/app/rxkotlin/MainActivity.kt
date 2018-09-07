@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
-import com.github.pwittchen.neurosky.library.NeuroSky
-import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException
+import com.github.pwittchen.neurosky.library.RxNeuroSky
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave
 import com.github.pwittchen.neurosky.library.message.enums.Signal
 import com.github.pwittchen.neurosky.library.message.enums.State
@@ -28,20 +27,20 @@ class MainActivity : AppCompatActivity() {
     const val LOG_TAG = "NeuroSky"
   }
 
-  private lateinit var neuroSky: NeuroSky
+  private lateinit var neuroSky: RxNeuroSky
   private lateinit var disposable: Disposable
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-    neuroSky = NeuroSky()
+    neuroSky = RxNeuroSky()
     initButtonListeners()
   }
 
   private fun initButtonListeners() {
     btn_connect.setOnClickListener {
       neuroSky
-          .connectCompletable()
+          .connect()
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     btn_disconnect.setOnClickListener {
       neuroSky
-          .disconnectCompletable()
+          .disconnect()
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(
@@ -65,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     btn_start_monitoring.setOnClickListener {
       neuroSky
-          .startMonitoringCompletable()
+          .startMonitoring()
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     btn_stop_monitoring.setOnClickListener {
       neuroSky
-          .stopMonitoringCompletable()
+          .startMonitoring()
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(
@@ -126,6 +125,7 @@ class MainActivity : AppCompatActivity() {
       Signal.ATTENTION -> tv_attention.text = getFormattedMessage("attention: %d", signal)
       Signal.MEDITATION -> tv_meditation.text = getFormattedMessage("meditation: %d", signal)
       Signal.BLINK -> tv_blink.text = getFormattedMessage("blink: %d", signal)
+      else -> Log.d(LOG_TAG, "unhandled signal")
     }
 
     Log.d(LOG_TAG, String.format("%s: %d", signal.toString(), signal.value))

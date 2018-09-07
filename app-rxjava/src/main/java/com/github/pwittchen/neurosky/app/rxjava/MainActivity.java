@@ -9,7 +9,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.github.pwittchen.neurosky.library.NeuroSky;
+import com.github.pwittchen.neurosky.library.RxNeuroSky;
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
 import com.github.pwittchen.neurosky.library.message.enums.Signal;
 import com.github.pwittchen.neurosky.library.message.enums.State;
@@ -22,7 +22,7 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
   private final static String LOG_TAG = "NeuroSky";
-  private NeuroSky neuroSky;
+  private RxNeuroSky neuroSky;
   private Disposable disposable;
 
   @BindView(R.id.tv_state) TextView tvState;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
-    neuroSky = new NeuroSky();
+    neuroSky = new RxNeuroSky();
   }
 
   @Override protected void onResume() {
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
   @SuppressLint("CheckResult") @OnClick(R.id.btn_connect) void connect() {
     neuroSky
-        .connectCompletable()
+        .connect()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
   @SuppressLint("CheckResult") @OnClick(R.id.btn_disconnect) void disconnect() {
     neuroSky
-        .disconnectCompletable()
+        .disconnect()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
   @SuppressLint("CheckResult") @OnClick(R.id.btn_start_monitoring) void startMonitoring() {
     neuroSky
-        .startMonitoringCompletable()
+        .startMonitoring()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
   @SuppressLint("CheckResult") @OnClick(R.id.btn_stop_monitoring) void stopMonitoring() {
     neuroSky
-        .stopMonitoringCompletable()
+        .stopMonitoring()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(

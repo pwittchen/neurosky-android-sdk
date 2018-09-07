@@ -83,34 +83,66 @@ Nevertheless, in that case, you'll have to process and handle data manually.
 #### RxJava
 
 ```java
-neuroSky = new NeuroSky();
+// initialize object
+RxNeuroSky neuroSky = new RxNeuroSky();
 
+// stream data
 neuroSky
-    .stream()
-    .subscribeOn(Schedulers.computation())
-    .observeOn(AndroidSchedulers.mainThread())
-    .subscribe(brainEvent -> {
-      handleStateChange(brainEvent.state());
-      handleSignalChange(brainEvent.signal());
-      handleBrainWavesChange(brainEvent.brainWaves());
-    });
+  .stream()
+  .subscribeOn(Schedulers.computation())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe(brainEvent -> {
+    // handle state in brainEvent.state();
+    // handle signal in brainEvent.signal();
+    // handle brainwaves in brainEvent.brainWaves();
+  });
 
-// connecting, disconnecting, starting and stopping monitoring is the same as in the previous example
+// connect to the device
+neuroSky
+  .connect()
+  .subscribeOn(Schedulers.io())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe(
+      () -> /* is connecting... */,
+      throwable -> { /* handle error...*/ }
+  );
+
+// start monitoring (should start automatically after establishing connection)
+neuroSky
+  .startMonitoring()
+  .subscribeOn(Schedulers.io())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe(
+    () -> /* started monitoring */,
+    throwable -> { /* handle error...*/ }
+   );
+
+// stop monitoring
+neuroSky
+  .stopMonitoring()
+  .subscribeOn(Schedulers.io())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe(
+    () -> /* stopped monitoring */,
+    throwable -> { /* handle error...*/ }
+   );
+
+// disconnect from the device
+neuroSky
+  .disconnect()
+  .subscribeOn(Schedulers.io())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe(
+    () -> /* is disconnected */,
+    throwable -> { /* handle error...*/ }
+  );
+
 ```
 
 Default backpressure strategy is BUFFER. In order to customize backpressure strategy, you can use the following method:
 
 ```java
 Flowable<BrainEvent> stream(backpressureStrategy)
-```
-
-You can also leverage capabilities of RxJava and its error handling by using the following methods:
-
-```java
-Completable connectCompletable()
-Completable disconnectCompletable()
-Completable startMonitoringCompletable()
-Completable stopMonitoringCompletable()
 ```
 
 ### Kotlin
@@ -163,34 +195,65 @@ Nevertheless, in that case, you'll have to process and handle data manually.
 #### RxKotlin
 
 ```kotlin
-val neuroSky = NeuroSky()
+//initialize object
+val neuroSky = RxNeuroSky()
 
+// stream data
 neuroSky
   .stream()
   .subscribeOn(Schedulers.computation())
   .observeOn(AndroidSchedulers.mainThread())
   .subscribe {
-    handleStateChange(it.state())
-    handleSignalChange(it.signal())
-    handleBrainWavesChange(it.brainWaves())
+    // handle state in it.state();
+    // handle signal in it.signal();
+    // handle brainwaves in it.brainWaves();
   }
 
-// connecting, disconnecting, starting and stopping monitoring is the same as in the previous example
+// connect to the device
+neuroSky
+  .connect()
+  .subscribeOn(Schedulers.io())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe(
+      { /* is connecting... */ },
+      { throwable -> /* handle error */ }
+  )
+
+// start monitoring
+neuroSky
+  .startMonitoring()
+  .subscribeOn(Schedulers.io())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe(
+      { /* started monitoring */ },
+      { throwable -> /* handle error */ }
+  )
+
+// stop monitoring
+neuroSky
+  .stopMonitoring()
+  .subscribeOn(Schedulers.io())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe(
+      { /* stopped monitoring */ },
+      { throwable -> /* handle error */ }
+  )
+
+// disconnect from the device
+neuroSky
+  .disconnect()
+  .subscribeOn(Schedulers.io())
+  .observeOn(AndroidSchedulers.mainThread())
+  .subscribe(
+      { /* is disconnected */ },
+      { throwable -> /* handle error */ }
+  )
 ```
 
 Default backpressure strategy is BUFFER. In order to customize backpressure strategy, you can use the following method:
 
 ```java
 Flowable<BrainEvent> stream(backpressureStrategy)
-```
-
-You can also leverage capabilities of RxKotlin and its error handling by using the following methods:
-
-```java
-Completable connectCompletable()
-Completable disconnectCompletable()
-Completable startMonitoringCompletable()
-Completable stopMonitoringCompletable()
 ```
 
 Examples
