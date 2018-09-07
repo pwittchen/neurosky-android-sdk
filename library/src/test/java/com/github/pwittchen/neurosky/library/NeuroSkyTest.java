@@ -13,11 +13,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.spy;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(manifest = Config.NONE)
 public class NeuroSkyTest {
 
   @Mock
@@ -96,10 +98,12 @@ public class NeuroSkyTest {
 
   @Test(expected = BluetoothNotEnabledException.class)
   public void shouldThrowAnExceptionWhenTryingToConnectToDeviceWithBluetoothDisabled() {
-    // when
+    // given
     NeuroSky neuroSky = new NeuroSky(deviceMessageListener);
 
-    // then
+    // when
     neuroSky.connect();
+
+    // then an exception is thrown
   }
 }
