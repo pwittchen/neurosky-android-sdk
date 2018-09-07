@@ -7,8 +7,6 @@ This SDK allows you to write mobile Android apps interacting with the brain via 
 
 **Please note**: this SDK is not a product of NeuroSky company, but it depends on its software and hardware
 
-**This project is not production-ready yet!**
-
 Contents
 --------
 
