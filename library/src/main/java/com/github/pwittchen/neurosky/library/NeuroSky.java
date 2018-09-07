@@ -45,18 +45,6 @@ public class NeuroSky {
     });
   }
 
-  //public RxNeuroSky rx() {
-  //  return new RxNeuroSky();
-  //}
-  //
-  //public Flowable<BrainEvent> stream(BackpressureStrategy backpressureStrategy) {
-  //  return eventBus.receive(backpressureStrategy);
-  //}
-  //
-  //public Flowable<BrainEvent> stream() {
-  //  return stream(BackpressureStrategy.BUFFER);
-  //}
-
   public void connect() throws BluetoothNotEnabledException {
     if (!Preconditions.isBluetoothEnabled()) {
       throw new BluetoothNotEnabledException();
@@ -67,39 +55,12 @@ public class NeuroSky {
     }
   }
 
-  //public Completable connectCompletable() {
-  //  return Completable.create(emitter -> {
-  //    if (!Preconditions.isBluetoothEnabled()) {
-  //      emitter.onError(new BluetoothNotEnabledException());
-  //    }
-  //
-  //    if (Preconditions.canConnect(device)) {
-  //      device.connect(rawSignalEnabled);
-  //      emitter.onComplete();
-  //    } else {
-  //      emitter.onError(new BluetoothConnectingOrConnectedException());
-  //    }
-  //  });
-  //}
-
   public void disconnect() {
     if (Preconditions.isConnected(device)) {
       device.close();
       device = null;
     }
   }
-
-  //public Completable disconnectCompletable() {
-  //  return Completable.create(emitter -> {
-  //    if (Preconditions.isConnected(device)) {
-  //      device.close();
-  //      device = null;
-  //      emitter.onComplete();
-  //    } else {
-  //      emitter.onError(new BluetoothNotConnectedException());
-  //    }
-  //  });
-  //}
 
   public void enableRawSignal() {
     rawSignalEnabled = true;
@@ -118,34 +79,12 @@ public class NeuroSky {
       device.start();
     }
   }
-  //
-  //public Completable startMonitoringCompletable() {
-  //  return Completable.create(emitter -> {
-  //    if (Preconditions.isConnected(device)) {
-  //      device.start();
-  //      emitter.onComplete();
-  //    } else {
-  //      emitter.onError(new BluetoothNotConnectedException());
-  //    }
-  //  });
-  //}
 
   public void stopMonitoring() {
     if (Preconditions.isConnected(device)) {
       device.stop();
     }
   }
-
-  //public Completable stopMonitoringCompletable() {
-  //  return Completable.create(emitter -> {
-  //    if (Preconditions.isConnected(device)) {
-  //      device.stop();
-  //      emitter.onComplete();
-  //    } else {
-  //      emitter.onError(new BluetoothNotConnectedException());
-  //    }
-  //  });
-  //}
 
   public TGDevice getDevice() {
     return device;

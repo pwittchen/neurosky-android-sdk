@@ -1,6 +1,7 @@
 package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
+import com.github.pwittchen.neurosky.library.bus.EventBus;
 import com.github.pwittchen.neurosky.library.exception.BluetoothConnectingOrConnectedException;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotConnectedException;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;

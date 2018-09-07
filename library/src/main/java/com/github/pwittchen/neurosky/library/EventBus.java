@@ -6,7 +6,7 @@ import io.reactivex.Flowable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
-public class EventBus {
+class EventBus {
 
   private final Subject<Object> bus = PublishSubject.create().toSerialized();
 
