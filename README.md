@@ -3,7 +3,7 @@ NeuroSky Android SDK
 
 NeuroSky MindWave Mobile Android SDK
 
-This SDK allows you to write mobile Android apps interacting with the brain via [NeuroSky](http://neurosky.com/) MindWave Mobile device connected to the phone or tablet via Bluetooth. You can write apps controlled by your brain or perform data acquisition and analysis of the brain signals (attention, meditation, brain waves, raw signal) and eye blinks. NeuroSky uses EEG technology for gathering brain data and EMG sensor for detecting blinks.
+This SDK allows you to write mobile Android apps interacting with the brain via [NeuroSky](http://neurosky.com/) MindWave Mobile device connected to the phone or tablet via Bluetooth. You can write apps controlled by your brain or perform data acquisition and analysis of the brain signals (attention, meditation, brain waves, raw signal) and eye blinks. NeuroSky uses EEG technology for gathering brain data and EMG sensor for detecting blinks. NeuroSky Android SDK uses ThinkGear library under the hood, which was developed by the NeuroSky company. 
 
 **Please note**: this SDK is not a product of NeuroSky company, but it depends on its software and hardware
 
