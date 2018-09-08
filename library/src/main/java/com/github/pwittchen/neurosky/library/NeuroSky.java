@@ -29,7 +29,6 @@ import java.util.Set;
 
 public class NeuroSky {
 
-  private final static EventBus eventBus = EventBus.create();
   private TGDevice device;
   private boolean rawSignalEnabled = false;
   private DeviceMessageHandler handler;
@@ -39,25 +38,6 @@ public class NeuroSky {
       handler = new DeviceMessageHandler(listener);
       device = new TGDevice(BluetoothAdapter.getDefaultAdapter(), handler);
     }
-  }
-
-  public NeuroSky() {
-    this(new ExtendedDeviceMessageListener() {
-      private State state = State.UNKNOWN;
-
-      @Override public void onStateChange(State state) {
-        this.state = state;
-        eventBus.send(new BrainEvent(state, Signal.STATE_CHANGE, new HashSet<>()));
-      }
-
-      @Override public void onSignalChange(Signal signal) {
-        eventBus.send(new BrainEvent(state, signal, new HashSet<>()));
-      }
-
-      @Override public void onBrainWavesChange(Set<BrainWave> brainWaves) {
-        eventBus.send(new BrainEvent(state, Signal.EEG_POWER, brainWaves));
-      }
-    });
   }
 
   public void connect() throws BluetoothNotEnabledException {

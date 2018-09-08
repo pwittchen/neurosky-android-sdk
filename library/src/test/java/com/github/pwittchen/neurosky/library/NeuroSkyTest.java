@@ -62,17 +62,6 @@ public class NeuroSkyTest {
   }
 
   @Test
-  public void shouldCreateNeuroSkyObjectWithImplicitListener() {
-    // when
-    NeuroSky neuroSky = spy(new NeuroSky());
-
-    // then
-    assertThat(neuroSky).isNotNull();
-    assertThat(neuroSky.getDevice()).isNotNull();
-    assertThat(neuroSky.getHandler()).isNotNull();
-  }
-
-  @Test
   public void shouldEnableRawSignal() {
     // given
     NeuroSky neuroSky = new NeuroSky(deviceMessageListener);
