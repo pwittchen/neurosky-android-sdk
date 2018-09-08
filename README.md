@@ -1,4 +1,4 @@
-NeuroSky Android SDK [![Build Status](https://travis-ci.org/pwittchen/neurosky-android-sdk.svg?branch=master)](https://travis-ci.org/pwittchen/neurosky-android-sdk) [![codecov](https://codecov.io/gh/pwittchen/neurosky-android-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/pwittchen/neurosky-android-sdk)
+NeuroSky Android SDK [![Build Status](https://img.shields.io/travis/pwittchen/neurosky-android-sdk.svg?branch=master&style=flat-square)](https://travis-ci.org/pwittchen/neurosky-android-sdk) [![codecov](https://img.shields.io/codecov/c/github/pwittchen/neurosky-android-sdk/master.svg?style=flat-square&label=coverage)](https://codecov.io/gh/pwittchen/neurosky-android-sdk)
 =====================
 
 NeuroSky MindWave Mobile Android SDK
