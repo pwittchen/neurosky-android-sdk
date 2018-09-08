@@ -8,7 +8,7 @@ public enum BrainWave {
   LOW_BETA(5),
   HIGH_BETA(6),
   LOW_GAMMA(7),
-  MID_GAMMA(7);
+  MID_GAMMA(8);
 
   private int type;
   private int value;
