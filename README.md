@@ -1,4 +1,4 @@
-NeuroSky Android SDK
+NeuroSky Android SDK [![Build Status](https://travis-ci.org/pwittchen/neurosky-android-sdk.svg?branch=master)](https://travis-ci.org/pwittchen/neurosky-android-sdk)
 =====================
 
 NeuroSky MindWave Mobile Android SDK
