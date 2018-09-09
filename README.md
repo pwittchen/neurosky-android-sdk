@@ -270,7 +270,7 @@ You can depend on the library through Gradle:
 
 ```groovy
 dependencies {
-  implementation 'com.github.pwittchen:neurosky-android-sdk:0.0.1'
+  implementation 'com.github.pwittchen:neurosky-android-sdk:0.0.2'
 }
 ```
 
