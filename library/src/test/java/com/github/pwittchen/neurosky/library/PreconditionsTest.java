@@ -53,6 +53,15 @@ public class PreconditionsTest {
   }
 
   @Test
+  public void shouldNotBeConnectingWhenDeviceIsNull() {
+    // when
+    boolean isConnecting = Preconditions.isConnecting(null);
+
+    // then
+    assertThat(isConnecting).isFalse();
+  }
+
+  @Test
   public void shouldBeConnected() {
     // given
     when(tgDevice.getState()).thenReturn(TGDevice.STATE_CONNECTED);
@@ -71,6 +80,15 @@ public class PreconditionsTest {
 
     // when
     boolean isConnected = Preconditions.isConnected(tgDevice);
+
+    // then
+    assertThat(isConnected).isFalse();
+  }
+
+  @Test
+  public void shouldNotBeConnectedWhenDeviceIsNull() {
+    // when
+    boolean isConnected = Preconditions.isConnected(null);
 
     // then
     assertThat(isConnected).isFalse();
