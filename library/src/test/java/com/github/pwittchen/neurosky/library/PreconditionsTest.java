@@ -162,4 +162,13 @@ public class PreconditionsTest {
     // then
     assertThat(isEnabled).isFalse();
   }
+
+  @Test
+  public void bluetoothShouldNotBeEnabledWhenAdapterIsNull() {
+    // when
+    boolean isEnabled = Preconditions.isBluetoothEnabled(null);
+
+    // then
+    assertThat(isEnabled).isFalse();
+  }
 }
