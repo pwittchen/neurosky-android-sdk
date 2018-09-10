@@ -2,6 +2,9 @@ package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
 import com.neurosky.thinkgear.TGDevice;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -170,5 +173,15 @@ public class PreconditionsTest {
 
     // then
     assertThat(isEnabled).isFalse();
+  }
+
+  @Test
+  public void constructorShouldBePrivate() throws NoSuchMethodException, IllegalAccessException,
+      InvocationTargetException, InstantiationException {
+
+    Constructor<Preconditions> constructor = Preconditions.class.getDeclaredConstructor();
+    assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
+    constructor.setAccessible(true);
+    constructor.newInstance();
   }
 }
