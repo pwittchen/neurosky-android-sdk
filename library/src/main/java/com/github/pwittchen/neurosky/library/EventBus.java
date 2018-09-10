@@ -25,6 +25,9 @@ class EventBus {
 
   private final Subject<Object> bus = PublishSubject.create().toSerialized();
 
+  private EventBus() {
+  }
+
   public static EventBus create() {
     return new EventBus();
   }

@@ -196,7 +196,6 @@ public class PreconditionsTest {
   @Test
   public void constructorShouldBePrivate() throws NoSuchMethodException, IllegalAccessException,
       InvocationTargetException, InstantiationException {
-
     Constructor<Preconditions> constructor = Preconditions.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
     constructor.setAccessible(true);
