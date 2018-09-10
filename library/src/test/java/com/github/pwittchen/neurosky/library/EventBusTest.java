@@ -34,7 +34,7 @@ public class EventBusTest {
   }
 
   @Test
-  public void shouldReceiveMessage() {
+  public void shouldReceiveEvent() {
     // given
     TestSubscriber subscriber = new TestSubscriber();
     EventBus bus = EventBus.create();
