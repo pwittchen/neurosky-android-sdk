@@ -36,7 +36,10 @@ public class Preconditions {
   }
 
   public static boolean isBluetoothAdapterInitialized() {
-    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    return isBluetoothAdapterInitialized(BluetoothAdapter.getDefaultAdapter());
+  }
+
+  static boolean isBluetoothAdapterInitialized(BluetoothAdapter bluetoothAdapter) {
     return bluetoothAdapter != null;
   }
 
@@ -44,7 +47,7 @@ public class Preconditions {
     return isBluetoothEnabled(BluetoothAdapter.getDefaultAdapter());
   }
 
-  protected static boolean isBluetoothEnabled(BluetoothAdapter bluetoothAdapter) {
+  static boolean isBluetoothEnabled(BluetoothAdapter bluetoothAdapter) {
     return (bluetoothAdapter != null && bluetoothAdapter.isEnabled());
   }
 }

@@ -134,12 +134,30 @@ public class PreconditionsTest {
   }
 
   @Test
+  public void bluetoothAdapterShouldBeInitializedWhenItsNotNull() {
+    // when
+    boolean isInitialized = Preconditions.isBluetoothAdapterInitialized(bluetoothAdapter);
+
+    // then
+    assertThat(isInitialized).isTrue();
+  }
+
+  @Test
   public void bluetoothAdapterShouldBeInitialized() {
     // when
     boolean isInitialized = Preconditions.isBluetoothAdapterInitialized();
 
     // then
     assertThat(isInitialized).isTrue();
+  }
+
+  @Test
+  public void bluetoothAdapterShouldNotBeInitializedWhenItsNull() {
+    // when
+    boolean isInitialized = Preconditions.isBluetoothAdapterInitialized(null);
+
+    // then
+    assertThat(isInitialized).isFalse();
   }
 
   @Test
