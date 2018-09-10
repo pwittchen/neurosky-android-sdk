@@ -41,7 +41,10 @@ public class Preconditions {
   }
 
   public static boolean isBluetoothEnabled() {
-    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    return isBluetoothEnabled(BluetoothAdapter.getDefaultAdapter());
+  }
+
+  protected static boolean isBluetoothEnabled(BluetoothAdapter bluetoothAdapter) {
     return (bluetoothAdapter != null && bluetoothAdapter.isEnabled());
   }
 }
