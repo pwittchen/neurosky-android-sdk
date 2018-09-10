@@ -61,7 +61,7 @@ try {
 // disconnect from the device
 neuroSky.disconnect();
 
-// start monitoring (should start automatically after establishing connection)
+// start monitoring
 neuroSky.startMonitoring();
 
 // stop monitoring
@@ -105,7 +105,7 @@ neuroSky
       throwable -> { /* handle error...*/ }
   );
 
-// start monitoring (should start automatically after establishing connection)
+// start monitoring
 neuroSky
   .startMonitoring()
   .subscribeOn(Schedulers.io())
@@ -173,7 +173,7 @@ try {
 // disconnect from the device
 neuroSky.disconnect()
 
-// start monitoring (should start automatically after establishing connection)
+// start monitoring
 neuroSky.startMonitoring()
 
 // stop monitoring
