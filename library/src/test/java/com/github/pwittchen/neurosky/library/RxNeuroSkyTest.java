@@ -81,6 +81,7 @@ public class RxNeuroSkyTest {
 
     // then
     assertThat(throwable).isInstanceOf(BluetoothNotEnabledException.class);
+    assertThat(throwable.getMessage()).isEqualTo(new BluetoothNotEnabledException().getMessage());
   }
 
   @Test
