@@ -8,6 +8,7 @@ import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
 import com.github.pwittchen.neurosky.library.message.enums.Signal;
 import com.github.pwittchen.neurosky.library.message.enums.State;
 import com.github.pwittchen.neurosky.library.validation.Preconditions;
+import com.neurosky.thinkgear.TGDevice;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,12 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
@@ -135,5 +141,65 @@ public class NeuroSkyTest {
   @Test(expected = NullPointerException.class)
   public void shouldThrowAnExceptionWhenPreconditionsObjectIsNull() {
     new NeuroSky(deviceMessageListener, null);
+  }
+
+  @Test
+  public void shouldConnectToDevice() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(true);
+    when(preconditions.isBluetoothEnabled()).thenReturn(true);
+    NeuroSky neuroSky = spy(new NeuroSky(deviceMessageListener, preconditions));
+    when(preconditions.canConnect(neuroSky.getDevice())).thenReturn(true);
+
+    // when
+    neuroSky.connect();
+
+    // then
+    verify(neuroSky).beginConnection();
+  }
+
+  @Test
+  public void shouldNotConnectToDeviceWhenCannot() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(true);
+    when(preconditions.isBluetoothEnabled()).thenReturn(true);
+    NeuroSky neuroSky = spy(new NeuroSky(deviceMessageListener, preconditions));
+    when(preconditions.canConnect(neuroSky.getDevice())).thenReturn(false);
+
+    // when
+    neuroSky.connect();
+
+    // then
+    verify(neuroSky, times(0)).beginConnection();
+  }
+
+  @Test
+  public void shouldDisconnectFromDevice() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(true);
+    when(preconditions.isBluetoothEnabled()).thenReturn(true);
+    NeuroSky neuroSky = spy(new NeuroSky(deviceMessageListener, preconditions));
+    when(preconditions.isConnected(neuroSky.getDevice())).thenReturn(true);
+
+    // when
+    neuroSky.disconnect();
+
+    // then
+    verify(neuroSky).stopConnection();
+  }
+
+  @Test
+  public void shouldNotDisconnectFromDevice() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(true);
+    when(preconditions.isBluetoothEnabled()).thenReturn(true);
+    NeuroSky neuroSky = spy(new NeuroSky(deviceMessageListener, preconditions));
+    when(preconditions.isConnected(neuroSky.getDevice())).thenReturn(false);
+
+    // when
+    neuroSky.disconnect();
+
+    // then
+    verify(neuroSky, times(0)).stopConnection();
   }
 }

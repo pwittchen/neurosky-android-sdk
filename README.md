@@ -63,10 +63,10 @@ try {
 neuroSky.disconnect();
 
 // start monitoring
-neuroSky.startMonitoring();
+neuroSky.start();
 
 // stop monitoring
-neuroSky.stopMonitoring();
+neuroSky.stop();
 ```
 
 You can also create simpler listener with `DeviceMessageListener` interface and handle `android.os.Message` objects.
@@ -108,7 +108,7 @@ neuroSky
 
 // start monitoring
 neuroSky
-  .startMonitoring()
+  .start()
   .subscribeOn(Schedulers.io())
   .observeOn(AndroidSchedulers.mainThread())
   .subscribe(
@@ -118,7 +118,7 @@ neuroSky
 
 // stop monitoring
 neuroSky
-  .stopMonitoring()
+  .stop()
   .subscribeOn(Schedulers.io())
   .observeOn(AndroidSchedulers.mainThread())
   .subscribe(
@@ -175,10 +175,10 @@ try {
 neuroSky.disconnect()
 
 // start monitoring
-neuroSky.startMonitoring()
+neuroSky.start()
 
 // stop monitoring
-neuroSky.stopMonitoring()
+neuroSky.stop()
 ```
 
 You can also create simpler listener with `DeviceMessageListener` interface and handle `android.os.Message` objects.
@@ -220,7 +220,7 @@ neuroSky
 
 // start monitoring
 neuroSky
-  .startMonitoring()
+  .start()
   .subscribeOn(Schedulers.io())
   .observeOn(AndroidSchedulers.mainThread())
   .subscribe(
@@ -230,7 +230,7 @@ neuroSky
 
 // stop monitoring
 neuroSky
-  .stopMonitoring()
+  .stop()
   .subscribeOn(Schedulers.io())
   .observeOn(AndroidSchedulers.mainThread())
   .subscribe(

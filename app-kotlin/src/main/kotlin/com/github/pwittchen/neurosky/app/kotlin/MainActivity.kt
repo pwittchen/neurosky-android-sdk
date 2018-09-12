@@ -51,25 +51,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     btn_start_monitoring.setOnClickListener {
-      neuroSky.startMonitoring()
+      neuroSky.start()
     }
 
     btn_stop_monitoring.setOnClickListener {
-      neuroSky.stopMonitoring()
+      neuroSky.stop()
     }
   }
 
   override fun onResume() {
     super.onResume()
     if (neuroSky.isConnected) {
-      neuroSky.startMonitoring()
+      neuroSky.start()
     }
   }
 
   override fun onPause() {
     super.onPause()
     if (neuroSky.isConnected) {
-      neuroSky.stopMonitoring()
+      neuroSky.stop()
     }
   }
 
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
   private fun handleStateChange(state: State) {
     if (state == State.CONNECTED) {
-      neuroSky.startMonitoring()
+      neuroSky.start()
     }
 
     tv_state.text = state.toString()

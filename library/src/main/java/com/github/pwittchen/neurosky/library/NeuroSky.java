@@ -47,16 +47,24 @@ public class NeuroSky {
       throw new BluetoothNotEnabledException();
     }
 
-    if (preconditions.canConnect(device)) {
-      device.connect(rawSignalEnabled);
+    if (canConnect()) {
+      beginConnection();
     }
+  }
+
+  protected void beginConnection() {
+    device.connect(rawSignalEnabled);
   }
 
   public void disconnect() {
     if (isConnected()) {
-      device.close();
-      device = null;
+      stopConnection();
     }
+  }
+
+  protected void stopConnection() {
+    device.close();
+    device = null;
   }
 
   public void enableRawSignal() {
@@ -71,16 +79,20 @@ public class NeuroSky {
     return rawSignalEnabled;
   }
 
-  public void startMonitoring() {
+  public void start() {
     if (isConnected()) {
       device.start();
     }
   }
 
-  public void stopMonitoring() {
+  public void stop() {
     if (isConnected()) {
       device.stop();
     }
+  }
+
+  public boolean canConnect() {
+    return preconditions.canConnect(device);
   }
 
   public boolean isConnected() {

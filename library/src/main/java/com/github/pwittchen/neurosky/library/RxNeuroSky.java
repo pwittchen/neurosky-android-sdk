@@ -120,7 +120,7 @@ public class RxNeuroSky {
     return rawSignalEnabled;
   }
 
-  public Completable startMonitoring() {
+  public Completable start() {
     return Completable.create(emitter -> {
       if (preconditions.isConnected(device)) {
         device.start();
@@ -131,7 +131,7 @@ public class RxNeuroSky {
     });
   }
 
-  public Completable stopMonitoring() {
+  public Completable stop() {
     return Completable.create(emitter -> {
       if (preconditions.isConnected(device)) {
         device.stop();

@@ -39,14 +39,14 @@ public class MainActivity extends AppCompatActivity {
   @Override protected void onResume() {
     super.onResume();
     if (neuroSky != null && neuroSky.isConnected()) {
-      neuroSky.startMonitoring();
+      neuroSky.start();
     }
   }
 
   @Override protected void onPause() {
     super.onPause();
     if (neuroSky != null && neuroSky.isConnected()) {
-      neuroSky.stopMonitoring();
+      neuroSky.stop();
     }
   }
 
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void handleStateChange(final State state) {
     if (neuroSky != null && state.equals(State.CONNECTED)) {
-      neuroSky.startMonitoring();
+      neuroSky.start();
     }
 
     tvState.setText(state.toString());
@@ -115,10 +115,10 @@ public class MainActivity extends AppCompatActivity {
   }
 
   @OnClick(R.id.btn_start_monitoring) void startMonitoring() {
-    neuroSky.startMonitoring();
+    neuroSky.start();
   }
 
   @OnClick(R.id.btn_stop_monitoring) void stopMonitoring() {
-    neuroSky.stopMonitoring();
+    neuroSky.stop();
   }
 }

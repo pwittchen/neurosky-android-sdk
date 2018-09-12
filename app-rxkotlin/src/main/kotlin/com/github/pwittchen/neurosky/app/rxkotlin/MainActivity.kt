@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     btn_start_monitoring.setOnClickListener {
       neuroSky
-          .startMonitoring()
+          .start()
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     btn_stop_monitoring.setOnClickListener {
       neuroSky
-          .startMonitoring()
+          .start()
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 
   private fun handleStateChange(state: State) {
     if (state == State.CONNECTED) {
-      neuroSky.startMonitoring()
+      neuroSky.start()
     }
 
     tv_state.text = state.toString()

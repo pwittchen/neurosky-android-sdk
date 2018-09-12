@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void handleStateChange(final State state) {
     if (neuroSky != null && state.equals(State.CONNECTED)) {
-      neuroSky.startMonitoring();
+      neuroSky.start();
     }
 
     tvState.setText(state.toString());
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
   @SuppressLint("CheckResult") @OnClick(R.id.btn_start_monitoring) void startMonitoring() {
     neuroSky
-        .startMonitoring()
+        .start()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
   @SuppressLint("CheckResult") @OnClick(R.id.btn_stop_monitoring) void stopMonitoring() {
     neuroSky
-        .stopMonitoring()
+        .stop()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
