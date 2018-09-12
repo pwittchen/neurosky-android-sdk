@@ -326,7 +326,7 @@ See [RELEASING.md](https://github.com/pwittchen/neurosky-android-sdk/blob/master
 Device diagram
 --------------
 
-![](mindwave_diagram.jpg)
+![](https://raw.githubusercontent.com/pwittchen/neurosky-android-sdk/master/mindwave_diagram.jpg)
 
 References
 -----------
