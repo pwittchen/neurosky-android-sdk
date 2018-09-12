@@ -133,6 +133,7 @@ public class RxNeuroSkyTest {
     // then
     testObserver.onSuccess(true);
     verify(neuroSky).closeConnection();
+    assertThat(neuroSky.getDevice()).isNotNull();
   }
 
   @Test

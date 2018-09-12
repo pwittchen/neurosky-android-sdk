@@ -64,7 +64,6 @@ public class NeuroSky {
 
   protected void closeConnection() {
     device.close();
-    device = null;
   }
 
   public void enableRawSignal() {

@@ -183,6 +183,7 @@ public class NeuroSkyTest {
 
     // then
     verify(neuroSky).closeConnection();
+    assertThat(neuroSky.getDevice()).isNotNull();
   }
 
   @Test

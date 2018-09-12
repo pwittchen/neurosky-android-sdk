@@ -113,7 +113,6 @@ public class RxNeuroSky {
 
   protected void closeConnection() {
     device.close();
-    device = null;
   }
 
   public void enableRawSignal() {
