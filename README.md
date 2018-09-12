@@ -1,7 +1,9 @@
-NeuroSky Android SDK [![Build Status](https://img.shields.io/travis/pwittchen/neurosky-android-sdk.svg?branch=master&style=flat-square)](https://travis-ci.org/pwittchen/neurosky-android-sdk) [![codecov](https://img.shields.io/codecov/c/github/pwittchen/neurosky-android-sdk/master.svg?style=flat-square&label=coverage)](https://codecov.io/gh/pwittchen/neurosky-android-sdk) ![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/neurosky-android-sdk.svg?style=flat-square)
-=====================
+NeuroSky Android SDK
+====================
 
 NeuroSky MindWave Mobile Android SDK
+
+[![Build Status](https://img.shields.io/travis/pwittchen/neurosky-android-sdk.svg?branch=master&style=flat-square)](https://travis-ci.org/pwittchen/neurosky-android-sdk) [![codecov](https://img.shields.io/codecov/c/github/pwittchen/neurosky-android-sdk/master.svg?style=flat-square&label=coverage)](https://codecov.io/gh/pwittchen/neurosky-android-sdk) ![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/neurosky-android-sdk.svg?style=flat-square)
 
 This SDK allows you to write mobile Android apps interacting with the brain via [NeuroSky](http://neurosky.com/) MindWave Mobile device connected to the phone or tablet via Bluetooth. You can write apps controlled by your brain or perform data acquisition and analysis of the brain signals (attention, meditation, brain waves, raw signal) and eye blinks. NeuroSky uses EEG technology for gathering brain data and EMG sensor for detecting blinks. NeuroSky Android SDK uses ThinkGear library under the hood, which was developed by the NeuroSky company. 
 
@@ -23,6 +25,7 @@ Contents
 - [Code style](#code-style)
 - [Static code analysis](#static-code-analysis)
 - [JavaDoc](#javadoc)
+- [Documentation](#documentation)
 - [Changelog](#changelog)
 - [Releasing](#releasing)
 - [Device diagram](#device-diagram)
@@ -311,6 +314,11 @@ JavaDoc
 
 JavaDoc is available at: http://pwittchen.github.io/neurosky-android-sdk/javadoc
 
+Documentation
+-------------
+
+JavaDoc is available at: http://pwittchen.github.io/neurosky-android-sdk/docs
+
 Changelog
 ---------
 
@@ -324,7 +332,7 @@ See [RELEASING.md](https://github.com/pwittchen/neurosky-android-sdk/blob/master
 Device diagram
 --------------
 
-![](mindwave_diagram.jpg)
+![](https://raw.githubusercontent.com/pwittchen/neurosky-android-sdk/master/mindwave_diagram.jpg)
 
 References
 -----------
