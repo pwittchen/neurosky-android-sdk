@@ -25,6 +25,7 @@ Contents
 - [Code style](#code-style)
 - [Static code analysis](#static-code-analysis)
 - [JavaDoc](#javadoc)
+- [Documentation](#documentation)
 - [Changelog](#changelog)
 - [Releasing](#releasing)
 - [Device diagram](#device-diagram)
@@ -312,6 +313,11 @@ JavaDoc
 -------
 
 JavaDoc is available at: http://pwittchen.github.io/neurosky-android-sdk/javadoc
+
+Documentation
+-------------
+
+JavaDoc is available at: http://pwittchen.github.io/neurosky-android-sdk/docs
 
 Changelog
 ---------
