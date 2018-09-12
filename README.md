@@ -317,7 +317,7 @@ JavaDoc is available at: http://pwittchen.github.io/neurosky-android-sdk/javadoc
 Documentation
 -------------
 
-JavaDoc is available at: http://pwittchen.github.io/neurosky-android-sdk/docs
+Documentation is available at: http://pwittchen.github.io/neurosky-android-sdk/docs
 
 Changelog
 ---------
