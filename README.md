@@ -25,6 +25,7 @@ Contents
 - [JavaDoc](#javadoc)
 - [Changelog](#changelog)
 - [Releasing](#releasing)
+- [Device diagram](#device-diagram)
 - [References](#references)
 - [License](#license)
 
@@ -319,6 +320,11 @@ Releasing
 ---------
 
 See [RELEASING.md](https://github.com/pwittchen/neurosky-android-sdk/blob/master/RELEASING.md) file.
+
+Device diagram
+--------------
+
+[![](mindwave_diagram.jpg)]
 
 References
 -----------
