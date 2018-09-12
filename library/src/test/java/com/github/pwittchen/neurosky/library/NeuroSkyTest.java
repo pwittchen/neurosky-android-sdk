@@ -199,4 +199,65 @@ public class NeuroSkyTest {
     // then
     verify(neuroSky, times(0)).closeConnection();
   }
+
+  @Test
+  public void shouldStartMonitoring() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(true);
+    when(preconditions.isBluetoothEnabled()).thenReturn(true);
+    NeuroSky neuroSky = spy(new NeuroSky(deviceMessageListener, preconditions));
+    when(preconditions.isConnected(neuroSky.getDevice())).thenReturn(true);
+
+    // when
+    neuroSky.start();
+
+    // then
+    verify(neuroSky).startMonitoring();
+  }
+
+
+  @Test
+  public void shouldNotStartMonitoring() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(true);
+    when(preconditions.isBluetoothEnabled()).thenReturn(true);
+    NeuroSky neuroSky = spy(new NeuroSky(deviceMessageListener, preconditions));
+    when(preconditions.isConnected(neuroSky.getDevice())).thenReturn(false);
+
+    // when
+    neuroSky.start();
+
+    // then
+    verify(neuroSky, times(0)).startMonitoring();
+  }
+
+  @Test
+  public void shouldStopMonitoring() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(true);
+    when(preconditions.isBluetoothEnabled()).thenReturn(true);
+    NeuroSky neuroSky = spy(new NeuroSky(deviceMessageListener, preconditions));
+    when(preconditions.isConnected(neuroSky.getDevice())).thenReturn(true);
+
+    // when
+    neuroSky.stop();
+
+    // then
+    verify(neuroSky).stopMonitoring();
+  }
+
+  @Test
+  public void shouldNotStopMonitoring() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(true);
+    when(preconditions.isBluetoothEnabled()).thenReturn(true);
+    NeuroSky neuroSky = spy(new NeuroSky(deviceMessageListener, preconditions));
+    when(preconditions.isConnected(neuroSky.getDevice())).thenReturn(false);
+
+    // when
+    neuroSky.stop();
+
+    // then
+    verify(neuroSky, times(0)).stopMonitoring();
+  }
 }

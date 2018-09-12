@@ -85,7 +85,7 @@ public class NeuroSky {
     }
   }
 
-  private void startMonitoring() {
+  protected void startMonitoring() {
     device.start();
   }
 
@@ -95,7 +95,7 @@ public class NeuroSky {
     }
   }
 
-  private void stopMonitoring() {
+  protected void stopMonitoring() {
     device.stop();
   }
 
