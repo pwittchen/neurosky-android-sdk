@@ -58,11 +58,11 @@ public class NeuroSky {
 
   public void disconnect() {
     if (isConnected()) {
-      stopConnection();
+      closeConnection();
     }
   }
 
-  protected void stopConnection() {
+  protected void closeConnection() {
     device.close();
     device = null;
   }
@@ -81,14 +81,22 @@ public class NeuroSky {
 
   public void start() {
     if (isConnected()) {
-      device.start();
+      beginMonitoring();
     }
+  }
+
+  private void beginMonitoring() {
+    device.start();
   }
 
   public void stop() {
     if (isConnected()) {
-      device.stop();
+      stopMonitoring();
     }
+  }
+
+  private void stopMonitoring() {
+    device.stop();
   }
 
   public boolean canConnect() {

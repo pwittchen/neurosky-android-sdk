@@ -88,7 +88,7 @@ public class RxNeuroSky {
       }
 
       if (preconditions.canConnect(device)) {
-        device.connect(rawSignalEnabled);
+        beginConnection();
         emitter.onComplete();
       } else {
         emitter.onError(new BluetoothConnectingOrConnectedException());
@@ -96,16 +96,24 @@ public class RxNeuroSky {
     });
   }
 
+  protected void beginConnection() {
+    device.connect(rawSignalEnabled);
+  }
+
   public Completable disconnect() {
     return Completable.create(emitter -> {
       if (preconditions.isConnected(device)) {
-        device.close();
-        device = null;
+        closeConnection();
         emitter.onComplete();
       } else {
         emitter.onError(new BluetoothNotConnectedException());
       }
     });
+  }
+
+  protected void closeConnection() {
+    device.close();
+    device = null;
   }
 
   public void enableRawSignal() {
@@ -123,7 +131,7 @@ public class RxNeuroSky {
   public Completable start() {
     return Completable.create(emitter -> {
       if (preconditions.isConnected(device)) {
-        device.start();
+        startMonitoring();
         emitter.onComplete();
       } else {
         emitter.onError(new BluetoothNotConnectedException());
@@ -131,15 +139,23 @@ public class RxNeuroSky {
     });
   }
 
+  protected void startMonitoring() {
+    device.start();
+  }
+
   public Completable stop() {
     return Completable.create(emitter -> {
       if (preconditions.isConnected(device)) {
-        device.stop();
+        stopMonitoring();
         emitter.onComplete();
       } else {
         emitter.onError(new BluetoothNotConnectedException());
       }
     });
+  }
+
+  protected void stopMonitoring() {
+    device.stop();
   }
 
   public TGDevice getDevice() {

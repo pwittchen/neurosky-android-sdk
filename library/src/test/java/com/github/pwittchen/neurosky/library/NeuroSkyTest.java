@@ -8,7 +8,6 @@ import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
 import com.github.pwittchen.neurosky.library.message.enums.Signal;
 import com.github.pwittchen.neurosky.library.message.enums.State;
 import com.github.pwittchen.neurosky.library.validation.Preconditions;
-import com.neurosky.thinkgear.TGDevice;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,9 +18,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -185,7 +181,7 @@ public class NeuroSkyTest {
     neuroSky.disconnect();
 
     // then
-    verify(neuroSky).stopConnection();
+    verify(neuroSky).closeConnection();
   }
 
   @Test
@@ -200,6 +196,6 @@ public class NeuroSkyTest {
     neuroSky.disconnect();
 
     // then
-    verify(neuroSky, times(0)).stopConnection();
+    verify(neuroSky, times(0)).closeConnection();
   }
 }
