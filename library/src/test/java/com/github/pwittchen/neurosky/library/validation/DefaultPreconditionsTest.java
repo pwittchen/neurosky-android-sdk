@@ -1,10 +1,7 @@
-package com.github.pwittchen.neurosky.library;
+package com.github.pwittchen.neurosky.library.validation;
 
 import android.bluetooth.BluetoothAdapter;
 import com.neurosky.thinkgear.TGDevice;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +15,9 @@ import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
-public class PreconditionsTest {
+public class DefaultPreconditionsTest {
+
+  private Preconditions preconditions;
 
   @Mock
   private TGDevice tgDevice;
@@ -29,6 +28,7 @@ public class PreconditionsTest {
   @Before
   public void setUp() {
     MockitoAnnotations.initMocks(this);
+    this.preconditions = new DefaultPreconditions();
   }
 
   @Test
@@ -37,7 +37,7 @@ public class PreconditionsTest {
     when(tgDevice.getState()).thenReturn(TGDevice.STATE_CONNECTING);
 
     // when
-    boolean isConnecting = Preconditions.isConnecting(tgDevice);
+    boolean isConnecting = preconditions.isConnecting(tgDevice);
 
     // then
     assertThat(isConnecting).isTrue();
@@ -49,7 +49,7 @@ public class PreconditionsTest {
     when(tgDevice.getState()).thenReturn(TGDevice.STATE_DISCONNECTED);
 
     // when
-    boolean isConnecting = Preconditions.isConnecting(tgDevice);
+    boolean isConnecting = preconditions.isConnecting(tgDevice);
 
     // then
     assertThat(isConnecting).isFalse();
@@ -58,7 +58,7 @@ public class PreconditionsTest {
   @Test
   public void shouldNotBeConnectingWhenDeviceIsNull() {
     // when
-    boolean isConnecting = Preconditions.isConnecting(null);
+    boolean isConnecting = preconditions.isConnecting(null);
 
     // then
     assertThat(isConnecting).isFalse();
@@ -70,7 +70,7 @@ public class PreconditionsTest {
     when(tgDevice.getState()).thenReturn(TGDevice.STATE_CONNECTED);
 
     // when
-    boolean isConnected = Preconditions.isConnected(tgDevice);
+    boolean isConnected = preconditions.isConnected(tgDevice);
 
     // then
     assertThat(isConnected).isTrue();
@@ -82,7 +82,7 @@ public class PreconditionsTest {
     when(tgDevice.getState()).thenReturn(TGDevice.STATE_DISCONNECTED);
 
     // when
-    boolean isConnected = Preconditions.isConnected(tgDevice);
+    boolean isConnected = preconditions.isConnected(tgDevice);
 
     // then
     assertThat(isConnected).isFalse();
@@ -91,7 +91,7 @@ public class PreconditionsTest {
   @Test
   public void shouldNotBeConnectedWhenDeviceIsNull() {
     // when
-    boolean isConnected = Preconditions.isConnected(null);
+    boolean isConnected = preconditions.isConnected(null);
 
     // then
     assertThat(isConnected).isFalse();
@@ -103,7 +103,7 @@ public class PreconditionsTest {
     when(tgDevice.getState()).thenReturn(TGDevice.STATE_DISCONNECTED);
 
     // when
-    boolean isConnected = Preconditions.canConnect(tgDevice);
+    boolean isConnected = preconditions.canConnect(tgDevice);
 
     // then
     assertThat(isConnected).isTrue();
@@ -115,7 +115,7 @@ public class PreconditionsTest {
     when(tgDevice.getState()).thenReturn(TGDevice.STATE_CONNECTING);
 
     // when
-    boolean isConnected = Preconditions.canConnect(tgDevice);
+    boolean isConnected = preconditions.canConnect(tgDevice);
 
     // then
     assertThat(isConnected).isFalse();
@@ -127,7 +127,7 @@ public class PreconditionsTest {
     when(tgDevice.getState()).thenReturn(TGDevice.STATE_CONNECTED);
 
     // when
-    boolean isConnected = Preconditions.canConnect(tgDevice);
+    boolean isConnected = preconditions.canConnect(tgDevice);
 
     // then
     assertThat(isConnected).isFalse();
@@ -136,7 +136,7 @@ public class PreconditionsTest {
   @Test
   public void bluetoothAdapterShouldBeInitializedWhenItsNotNull() {
     // when
-    boolean isInitialized = Preconditions.isBluetoothAdapterInitialized(bluetoothAdapter);
+    boolean isInitialized = preconditions.isBluetoothAdapterInitialized(bluetoothAdapter);
 
     // then
     assertThat(isInitialized).isTrue();
@@ -145,7 +145,7 @@ public class PreconditionsTest {
   @Test
   public void bluetoothAdapterShouldBeInitialized() {
     // when
-    boolean isInitialized = Preconditions.isBluetoothAdapterInitialized();
+    boolean isInitialized = preconditions.isBluetoothAdapterInitialized();
 
     // then
     assertThat(isInitialized).isTrue();
@@ -154,7 +154,7 @@ public class PreconditionsTest {
   @Test
   public void bluetoothAdapterShouldNotBeInitializedWhenItsNull() {
     // when
-    boolean isInitialized = Preconditions.isBluetoothAdapterInitialized(null);
+    boolean isInitialized = preconditions.isBluetoothAdapterInitialized(null);
 
     // then
     assertThat(isInitialized).isFalse();
@@ -166,7 +166,7 @@ public class PreconditionsTest {
     when(bluetoothAdapter.isEnabled()).thenReturn(true);
 
     // when
-    boolean isEnabled = Preconditions.isBluetoothEnabled(bluetoothAdapter);
+    boolean isEnabled = preconditions.isBluetoothEnabled(bluetoothAdapter);
 
     // then
     assertThat(isEnabled).isTrue();
@@ -178,7 +178,7 @@ public class PreconditionsTest {
     when(bluetoothAdapter.isEnabled()).thenReturn(false);
 
     // when
-    boolean isEnabled = Preconditions.isBluetoothEnabled(bluetoothAdapter);
+    boolean isEnabled = preconditions.isBluetoothEnabled(bluetoothAdapter);
 
     // then
     assertThat(isEnabled).isFalse();
@@ -187,18 +187,9 @@ public class PreconditionsTest {
   @Test
   public void bluetoothShouldNotBeEnabledWhenAdapterIsNull() {
     // when
-    boolean isEnabled = Preconditions.isBluetoothEnabled(null);
+    boolean isEnabled = preconditions.isBluetoothEnabled(null);
 
     // then
     assertThat(isEnabled).isFalse();
-  }
-
-  @Test
-  public void constructorShouldBePrivate() throws NoSuchMethodException, IllegalAccessException,
-      InvocationTargetException, InstantiationException {
-    Constructor<Preconditions> constructor = Preconditions.class.getDeclaredConstructor();
-    assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
-    constructor.setAccessible(true);
-    constructor.newInstance();
   }
 }

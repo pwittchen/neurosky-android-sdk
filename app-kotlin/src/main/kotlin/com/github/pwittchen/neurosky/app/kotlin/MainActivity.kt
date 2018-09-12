@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.github.pwittchen.neurosky.library.NeuroSky
-import com.github.pwittchen.neurosky.library.Preconditions
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave
@@ -62,14 +61,14 @@ class MainActivity : AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
-    if (Preconditions.isConnected(neuroSky.device)) {
+    if (neuroSky.isConnected) {
       neuroSky.startMonitoring()
     }
   }
 
   override fun onPause() {
     super.onPause()
-    if (Preconditions.isConnected(neuroSky.device)) {
+    if (neuroSky.isConnected) {
       neuroSky.stopMonitoring()
     }
   }

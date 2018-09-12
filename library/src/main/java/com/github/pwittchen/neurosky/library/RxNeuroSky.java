@@ -16,6 +16,7 @@
 package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
+import android.support.annotation.NonNull;
 import com.github.pwittchen.neurosky.library.exception.BluetoothConnectingOrConnectedException;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotConnectedException;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
@@ -25,6 +26,8 @@ import com.github.pwittchen.neurosky.library.message.BrainEvent;
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
 import com.github.pwittchen.neurosky.library.message.enums.Signal;
 import com.github.pwittchen.neurosky.library.message.enums.State;
+import com.github.pwittchen.neurosky.library.validation.DefaultPreconditions;
+import com.github.pwittchen.neurosky.library.validation.Preconditions;
 import com.neurosky.thinkgear.TGDevice;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
@@ -34,16 +37,10 @@ import java.util.Set;
 
 public class RxNeuroSky {
   private final static EventBus eventBus = EventBus.create();
-  private TGDevice device;
   private boolean rawSignalEnabled = false;
+  private TGDevice device;
   private DeviceMessageHandler handler;
-
-  private RxNeuroSky(final DeviceMessageListener listener) {
-    if (Preconditions.isBluetoothAdapterInitialized()) {
-      handler = new DeviceMessageHandler(listener);
-      device = new TGDevice(BluetoothAdapter.getDefaultAdapter(), handler);
-    }
-  }
+  private Preconditions preconditions;
 
   public RxNeuroSky() {
     this(new ExtendedDeviceMessageListener() {
@@ -64,6 +61,18 @@ public class RxNeuroSky {
     });
   }
 
+  protected RxNeuroSky(final DeviceMessageListener listener) {
+    this(listener, new DefaultPreconditions());
+  }
+
+  protected RxNeuroSky(final DeviceMessageListener listener, @NonNull Preconditions preconditions) {
+    this.preconditions = preconditions;
+    if (preconditions.isBluetoothAdapterInitialized()) {
+      handler = new DeviceMessageHandler(listener);
+      device = new TGDevice(BluetoothAdapter.getDefaultAdapter(), handler);
+    }
+  }
+
   public Flowable<BrainEvent> stream(BackpressureStrategy backpressureStrategy) {
     return eventBus.receive(backpressureStrategy);
   }
@@ -74,11 +83,11 @@ public class RxNeuroSky {
 
   public Completable connect() {
     return Completable.create(emitter -> {
-      if (!Preconditions.isBluetoothEnabled()) {
+      if (!preconditions.isBluetoothEnabled()) {
         emitter.onError(new BluetoothNotEnabledException());
       }
 
-      if (Preconditions.canConnect(device)) {
+      if (preconditions.canConnect(device)) {
         device.connect(rawSignalEnabled);
         emitter.onComplete();
       } else {
@@ -89,7 +98,7 @@ public class RxNeuroSky {
 
   public Completable disconnect() {
     return Completable.create(emitter -> {
-      if (Preconditions.isConnected(device)) {
+      if (preconditions.isConnected(device)) {
         device.close();
         device = null;
         emitter.onComplete();
@@ -113,7 +122,7 @@ public class RxNeuroSky {
 
   public Completable startMonitoring() {
     return Completable.create(emitter -> {
-      if (Preconditions.isConnected(device)) {
+      if (preconditions.isConnected(device)) {
         device.start();
         emitter.onComplete();
       } else {
@@ -124,7 +133,7 @@ public class RxNeuroSky {
 
   public Completable stopMonitoring() {
     return Completable.create(emitter -> {
-      if (Preconditions.isConnected(device)) {
+      if (preconditions.isConnected(device)) {
         device.stop();
         emitter.onComplete();
       } else {

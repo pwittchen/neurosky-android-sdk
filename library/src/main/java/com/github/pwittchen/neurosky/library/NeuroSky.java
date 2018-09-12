@@ -16,35 +16,44 @@
 package com.github.pwittchen.neurosky.library;
 
 import android.bluetooth.BluetoothAdapter;
+import android.support.annotation.NonNull;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
 import com.github.pwittchen.neurosky.library.listener.DeviceMessageListener;
+import com.github.pwittchen.neurosky.library.validation.DefaultPreconditions;
+import com.github.pwittchen.neurosky.library.validation.Preconditions;
 import com.neurosky.thinkgear.TGDevice;
 
 public class NeuroSky {
 
-  private TGDevice device;
   private boolean rawSignalEnabled = false;
+  private TGDevice device;
   private DeviceMessageHandler handler;
+  private Preconditions preconditions;
 
   public NeuroSky(final DeviceMessageListener listener) {
-    if (Preconditions.isBluetoothAdapterInitialized()) {
+    this(listener, new DefaultPreconditions());
+  }
+
+  protected NeuroSky(final DeviceMessageListener listener, @NonNull Preconditions preconditions) {
+    this.preconditions = preconditions;
+    if (preconditions.isBluetoothAdapterInitialized()) {
       handler = new DeviceMessageHandler(listener);
       device = new TGDevice(BluetoothAdapter.getDefaultAdapter(), handler);
     }
   }
 
   public void connect() throws BluetoothNotEnabledException {
-    if (!Preconditions.isBluetoothEnabled()) {
+    if (!preconditions.isBluetoothEnabled()) {
       throw new BluetoothNotEnabledException();
     }
 
-    if (Preconditions.canConnect(device)) {
+    if (preconditions.canConnect(device)) {
       device.connect(rawSignalEnabled);
     }
   }
 
   public void disconnect() {
-    if (Preconditions.isConnected(device)) {
+    if (isConnected()) {
       device.close();
       device = null;
     }
@@ -63,15 +72,23 @@ public class NeuroSky {
   }
 
   public void startMonitoring() {
-    if (Preconditions.isConnected(device)) {
+    if (isConnected()) {
       device.start();
     }
   }
 
   public void stopMonitoring() {
-    if (Preconditions.isConnected(device)) {
+    if (isConnected()) {
       device.stop();
     }
+  }
+
+  public boolean isConnected() {
+    return preconditions.isConnected(device);
+  }
+
+  public boolean isConnecting() {
+    return preconditions.isConnecting(device);
   }
 
   public TGDevice getDevice() {

@@ -10,7 +10,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.github.pwittchen.neurosky.library.NeuroSky;
-import com.github.pwittchen.neurosky.library.Preconditions;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener;
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
@@ -39,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
 
   @Override protected void onResume() {
     super.onResume();
-    if (neuroSky != null && Preconditions.isConnected(neuroSky.getDevice())) {
+    if (neuroSky != null && neuroSky.isConnected()) {
       neuroSky.startMonitoring();
     }
   }
 
   @Override protected void onPause() {
     super.onPause();
-    if (neuroSky != null && Preconditions.isConnected(neuroSky.getDevice())) {
+    if (neuroSky != null && neuroSky.isConnected()) {
       neuroSky.stopMonitoring();
     }
   }

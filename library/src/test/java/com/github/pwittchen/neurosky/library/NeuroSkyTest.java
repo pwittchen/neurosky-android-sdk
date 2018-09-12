@@ -1,11 +1,13 @@
 package com.github.pwittchen.neurosky.library;
 
+import android.support.annotation.NonNull;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
 import com.github.pwittchen.neurosky.library.listener.DeviceMessageListener;
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener;
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave;
 import com.github.pwittchen.neurosky.library.message.enums.Signal;
 import com.github.pwittchen.neurosky.library.message.enums.State;
+import com.github.pwittchen.neurosky.library.validation.Preconditions;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +19,7 @@ import org.robolectric.annotation.Config;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
@@ -24,6 +27,9 @@ public class NeuroSkyTest {
 
   @Mock
   private DeviceMessageListener deviceMessageListener;
+
+  @Mock
+  private Preconditions preconditions;
 
   @Before
   public void setUp() {
@@ -44,7 +50,16 @@ public class NeuroSkyTest {
   @Test
   public void shouldCreateNeuroSkyObjectWithExtendedDeviceMessageListener() {
     // when
-    NeuroSky neuroSky = spy(new NeuroSky(new ExtendedDeviceMessageListener() {
+    NeuroSky neuroSky = spy(new NeuroSky(createExtendedDeviceMessageListener()));
+
+    // then
+    assertThat(neuroSky).isNotNull();
+    assertThat(neuroSky.getDevice()).isNotNull();
+    assertThat(neuroSky.getHandler()).isNotNull();
+  }
+
+  @NonNull private DeviceMessageListener createExtendedDeviceMessageListener() {
+    return new ExtendedDeviceMessageListener() {
       @Override public void onStateChange(State state) {
       }
 
@@ -53,12 +68,7 @@ public class NeuroSkyTest {
 
       @Override public void onBrainWavesChange(Set<BrainWave> brainWaves) {
       }
-    }));
-
-    // then
-    assertThat(neuroSky).isNotNull();
-    assertThat(neuroSky.getDevice()).isNotNull();
-    assertThat(neuroSky.getHandler()).isNotNull();
+    };
   }
 
   @Test
@@ -94,5 +104,36 @@ public class NeuroSkyTest {
     neuroSky.connect();
 
     // then an exception is thrown
+  }
+
+  @Test
+  public void shouldInitializeHandlerAndDevice() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(true);
+
+    // when
+    NeuroSky neuroSky = new NeuroSky(deviceMessageListener, preconditions);
+
+    // then
+    assertThat(neuroSky.getHandler()).isNotNull();
+    assertThat(neuroSky.getDevice()).isNotNull();
+  }
+
+  @Test
+  public void shouldNotInitializeHandlerAndDevice() {
+    // given
+    when(preconditions.isBluetoothAdapterInitialized()).thenReturn(false);
+
+    // when
+    NeuroSky neuroSky = new NeuroSky(deviceMessageListener, preconditions);
+
+    // then
+    assertThat(neuroSky.getHandler()).isNull();
+    assertThat(neuroSky.getDevice()).isNull();
+  }
+
+  @Test(expected = NullPointerException.class)
+  public void shouldThrowAnExceptionWhenPreconditionsObjectIsNull() {
+    new NeuroSky(deviceMessageListener, null);
   }
 }

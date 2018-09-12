@@ -13,41 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.pwittchen.neurosky.library;
+package com.github.pwittchen.neurosky.library.validation;
 
 import android.bluetooth.BluetoothAdapter;
 import com.neurosky.thinkgear.TGDevice;
 
-public class Preconditions {
+public class DefaultPreconditions implements Preconditions {
 
-  private Preconditions() {
-  }
-
-  public static boolean isConnecting(TGDevice device) {
+  @Override
+  public boolean isConnecting(TGDevice device) {
     return device != null && device.getState() == TGDevice.STATE_CONNECTING;
   }
 
-  public static boolean isConnected(TGDevice device) {
+  @Override
+  public boolean isConnected(TGDevice device) {
     return device != null && device.getState() == TGDevice.STATE_CONNECTED;
   }
 
-  public static boolean canConnect(TGDevice device) {
+  @Override
+  public boolean canConnect(TGDevice device) {
     return !isConnecting(device) && !isConnected(device);
   }
 
-  public static boolean isBluetoothAdapterInitialized() {
+  @Override
+  public boolean isBluetoothAdapterInitialized() {
     return isBluetoothAdapterInitialized(BluetoothAdapter.getDefaultAdapter());
   }
 
-  static boolean isBluetoothAdapterInitialized(BluetoothAdapter bluetoothAdapter) {
+  @Override
+  public boolean isBluetoothAdapterInitialized(BluetoothAdapter bluetoothAdapter) {
     return bluetoothAdapter != null;
   }
 
-  public static boolean isBluetoothEnabled() {
+  @Override
+  public boolean isBluetoothEnabled() {
     return isBluetoothEnabled(BluetoothAdapter.getDefaultAdapter());
   }
 
-  static boolean isBluetoothEnabled(BluetoothAdapter bluetoothAdapter) {
+  @Override
+  public boolean isBluetoothEnabled(BluetoothAdapter bluetoothAdapter) {
     return (bluetoothAdapter != null && bluetoothAdapter.isEnabled());
   }
 }
