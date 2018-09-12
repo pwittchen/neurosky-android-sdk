@@ -88,7 +88,7 @@ public class RxNeuroSky {
       }
 
       if (preconditions.canConnect(device)) {
-        beginConnection();
+        openConnection();
         emitter.onComplete();
       } else {
         emitter.onError(new BluetoothConnectingOrConnectedException());
@@ -96,7 +96,7 @@ public class RxNeuroSky {
     });
   }
 
-  protected void beginConnection() {
+  protected void openConnection() {
     device.connect(rawSignalEnabled);
   }
 

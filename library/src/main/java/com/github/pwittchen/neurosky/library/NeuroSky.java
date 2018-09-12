@@ -48,11 +48,11 @@ public class NeuroSky {
     }
 
     if (canConnect()) {
-      beginConnection();
+      openConnection();
     }
   }
 
-  protected void beginConnection() {
+  protected void openConnection() {
     device.connect(rawSignalEnabled);
   }
 
@@ -81,11 +81,11 @@ public class NeuroSky {
 
   public void start() {
     if (isConnected()) {
-      beginMonitoring();
+      startMonitoring();
     }
   }
 
-  private void beginMonitoring() {
+  private void startMonitoring() {
     device.start();
   }
 

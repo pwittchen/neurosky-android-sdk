@@ -23,6 +23,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("PMD") // in test classes we can have many static imports
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
 public class NeuroSkyTest {
@@ -151,7 +152,7 @@ public class NeuroSkyTest {
     neuroSky.connect();
 
     // then
-    verify(neuroSky).beginConnection();
+    verify(neuroSky).openConnection();
   }
 
   @Test
@@ -166,7 +167,7 @@ public class NeuroSkyTest {
     neuroSky.connect();
 
     // then
-    verify(neuroSky, times(0)).beginConnection();
+    verify(neuroSky, times(0)).openConnection();
   }
 
   @Test
