@@ -4,7 +4,6 @@ import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledExcept
 import com.github.pwittchen.neurosky.library.listener.DeviceMessageListener;
 import com.github.pwittchen.neurosky.library.validation.Preconditions;
 import io.reactivex.observers.TestObserver;
-import io.reactivex.subscribers.TestSubscriber;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -115,7 +114,7 @@ public class RxNeuroSkyTest {
 
     // then
     testObserver.onSuccess(false);
-    verify(neuroSky,times(0)).openConnection();
+    verify(neuroSky, times(0)).openConnection();
   }
 
   @Test
