@@ -1,5 +1,7 @@
 package com.github.pwittchen.neurosky.library;
 
+import com.github.pwittchen.neurosky.library.exception.BluetoothConnectingOrConnectedException;
+import com.github.pwittchen.neurosky.library.exception.BluetoothNotConnectedException;
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException;
 import com.github.pwittchen.neurosky.library.listener.DeviceMessageListener;
 import com.github.pwittchen.neurosky.library.validation.Preconditions;
@@ -95,7 +97,7 @@ public class RxNeuroSkyTest {
     neuroSky.connect().subscribe(testObserver);
 
     // then
-    testObserver.onSuccess(true);
+    testObserver.assertComplete();
     verify(neuroSky).openConnection();
   }
 
@@ -113,7 +115,8 @@ public class RxNeuroSkyTest {
     neuroSky.connect().subscribe(testObserver);
 
     // then
-    testObserver.onSuccess(false);
+    testObserver.assertError(BluetoothConnectingOrConnectedException.class);
+    testObserver.assertErrorMessage(new BluetoothConnectingOrConnectedException().getMessage());
     verify(neuroSky, times(0)).openConnection();
   }
 
@@ -131,7 +134,7 @@ public class RxNeuroSkyTest {
     neuroSky.disconnect().subscribe(testObserver);
 
     // then
-    testObserver.onSuccess(true);
+    testObserver.assertComplete();
     verify(neuroSky).closeConnection();
     assertThat(neuroSky.getDevice()).isNotNull();
   }
@@ -150,7 +153,8 @@ public class RxNeuroSkyTest {
     neuroSky.disconnect().subscribe(testObserver);
 
     // then
-    testObserver.onSuccess(false);
+    testObserver.assertError(BluetoothNotConnectedException.class);
+    testObserver.assertErrorMessage(new BluetoothNotConnectedException().getMessage());
     verify(neuroSky, times(0)).closeConnection();
   }
 
@@ -168,7 +172,7 @@ public class RxNeuroSkyTest {
     neuroSky.start().subscribe(testObserver);
 
     // then
-    testObserver.onSuccess(true);
+    testObserver.assertComplete();
     verify(neuroSky).startMonitoring();
   }
 
@@ -186,7 +190,8 @@ public class RxNeuroSkyTest {
     neuroSky.start().subscribe(testObserver);
 
     // then
-    testObserver.onSuccess(false);
+    testObserver.assertError(BluetoothNotConnectedException.class);
+    testObserver.assertErrorMessage(new BluetoothNotConnectedException().getMessage());
     verify(neuroSky, times(0)).startMonitoring();
   }
 
@@ -204,7 +209,7 @@ public class RxNeuroSkyTest {
     neuroSky.stop().subscribe(testObserver);
 
     // then
-    testObserver.onSuccess(true);
+    testObserver.assertComplete();
     verify(neuroSky).stopMonitoring();
   }
 
@@ -222,7 +227,8 @@ public class RxNeuroSkyTest {
     neuroSky.stop().subscribe(testObserver);
 
     // then
-    testObserver.onSuccess(false);
+    testObserver.assertError(BluetoothNotConnectedException.class);
+    testObserver.assertErrorMessage(new BluetoothNotConnectedException().getMessage());
     verify(neuroSky, times(0)).stopMonitoring();
   }
 }
