@@ -1,7 +1,7 @@
 NeuroSky Android SDK
 ====================
 
-NeuroSky MindWave Mobile Android SDK
+NeuroSky MindWave Mobile Android SDK for the Brainwave Sensing Headset
 
 [![Build Status](https://img.shields.io/travis/pwittchen/neurosky-android-sdk.svg?branch=master&style=flat-square)](https://travis-ci.org/pwittchen/neurosky-android-sdk) [![codecov](https://img.shields.io/codecov/c/github/pwittchen/neurosky-android-sdk/master.svg?style=flat-square&label=coverage)](https://codecov.io/gh/pwittchen/neurosky-android-sdk) ![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/neurosky-android-sdk.svg?style=flat-square)
 
