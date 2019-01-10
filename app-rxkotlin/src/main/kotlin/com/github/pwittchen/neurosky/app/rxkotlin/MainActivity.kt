@@ -1,9 +1,9 @@
 package com.github.pwittchen.neurosky.app.rxkotlin
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.github.pwittchen.neurosky.library.RxNeuroSky
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave
 import com.github.pwittchen.neurosky.library.message.enums.Signal

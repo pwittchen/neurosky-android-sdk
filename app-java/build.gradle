@@ -27,7 +27,7 @@ android {
 
 dependencies {
   implementation project(':library')
-  implementation deps.appcompatv7
+  implementation deps.appcompat
   implementation deps.constraintlayout
   implementation deps.butterknife
   annotationProcessor deps.butterknifecompiler
