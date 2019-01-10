@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     btn_stop_monitoring.setOnClickListener {
       neuroSky
-          .start()
+          .stop()
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(
