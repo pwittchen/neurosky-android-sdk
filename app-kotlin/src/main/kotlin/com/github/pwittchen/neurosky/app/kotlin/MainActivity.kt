@@ -1,9 +1,9 @@
 package com.github.pwittchen.neurosky.app.kotlin
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.github.pwittchen.neurosky.library.NeuroSky
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener
