@@ -28,6 +28,7 @@ Contents
 - [Documentation](#documentation)
 - [Changelog](#changelog)
 - [Releasing](#releasing)
+- [Verified devices](#verified-devices)
 - [Device diagram](#device-diagram)
 - [References](#references)
 - [License](#license)
@@ -329,8 +330,18 @@ Releasing
 
 See [RELEASING.md](https://github.com/pwittchen/neurosky-android-sdk/blob/master/RELEASING.md) file.
 
+Verified devices
+----------------
+
+This SDK was tested with the following devices:
+- NeuroSky MindWave Mobile 1
+
+**Note**: According to NeuroSky support it should work with NeuroSky MindWave Mobile 2 as well, but I didn't have an opportunity to test it. If you have such device, you can test it and give me a feedback!
+
 Device diagram
 --------------
+
+This is diagram of the NeuroSky MindWave Mobile 1
 
 ![](https://raw.githubusercontent.com/pwittchen/neurosky-android-sdk/master/mindwave_diagram.jpg)
 
