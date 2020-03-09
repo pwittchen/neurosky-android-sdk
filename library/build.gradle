@@ -13,6 +13,7 @@ android {
   testOptions.unitTests.includeAndroidResources = true
 
   defaultConfig {
+    multiDexEnabled true
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.compileSdkVersion
     versionCode 1
@@ -68,5 +69,6 @@ dependencies {
   testImplementation deps.junit
   testImplementation deps.truth
   testImplementation deps.robolectric
+  testImplementation deps.robolectricmultidex
   testImplementation deps.mockitocore
 }
