@@ -335,8 +335,7 @@ Verified devices
 
 This SDK was tested with the following devices:
 - NeuroSky MindWave Mobile 1
-
-**Note**: According to NeuroSky support, it should work with NeuroSky MindWave Mobile 2 as well, but I didn't have an opportunity to test it. If you have such device, you can test it and give me a feedback!
+- NeuroSKy MindWave Mobile 2
 
 Device diagram
 --------------
