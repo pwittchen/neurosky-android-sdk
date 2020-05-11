@@ -335,7 +335,7 @@ Verified devices
 
 This SDK was tested with the following devices:
 - NeuroSky MindWave Mobile 1
-- NeuroSKy MindWave Mobile 2
+- NeuroSky MindWave Mobile 2
 
 Device diagram
 --------------
