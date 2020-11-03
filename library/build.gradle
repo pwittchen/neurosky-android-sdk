@@ -2,7 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
 apply plugin: 'jacoco-android'
 apply plugin: 'net.ltgt.apt'
-apply plugin: 'com.mobbeel.plugin'
+//apply plugin: 'com.mobbeel.plugin'
+apply plugin: 'com.kezong.fat-aar'
 apply from: '../config/quality.gradle'
 apply from: '../maven_push.gradle'
 
@@ -56,9 +57,11 @@ jacocoAndroidUnitTestReport {
   xml.enabled true
 }
 
-fatAARConfig {
-  includeAllInnerDependencies false
-}
+//fatAARConfig {
+//  includeAllInnerDependencies false
+//}
+
+configurations.embed.transitive = false
 
 dependencies {
   api deps.thinkgear
